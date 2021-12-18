@@ -1,5 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 import 'package:intl/intl.dart';
 
@@ -13,19 +14,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController controllerTab;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late DocumentSnapshot<Map<String, dynamic>> userInfoMain;
   bool isLoading = true;
+  final Api _api = Api();
   final DateFormat formatter = DateFormat('dd.MM.yyyy');
 
   @override
   void initState() {
     MyPref().init().whenComplete(() {
-      
       MyPref().name = widget.ismlogin;
     });
-    getUserInfo();
+
     super.initState();
     controllerTab = TabController(length: 3, vsync: this);
     _pageController = PageController();
@@ -47,7 +47,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // debugPrint(userInfo.toString());
     return !isLoading
         ? Scaffold(
             appBar: buildAppBar(widget.ismlogin),
@@ -149,41 +148,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             physics: BouncingScrollPhysics(),
-            child: ListView.separated(
-              separatorBuilder: (_, __) {
-                return SizedBox(
-                  height: 10.0,
-                );
-              },
-              itemBuilder: (context, index) {
-                return TushumWidget(
-                  budgetInfo: "benzinga",
-                  budgetName: "yoqilg'i",
-                  icon:
-                      "https://previews.123rf.com/images/ladyminnie/ladyminnie1111/ladyminnie111100002/11164518-view-from-income-and-outcome-of-the-finances-isolated-on-white.jpg",
-                  budgetPrice: 349,
-                  time: DateTime.now(),
-                );
-              },
-              itemCount: 3,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-            ),
+            child: FutureBuilder(
+                future: _api.getDocuments("kassa/${widget.ismlogin}/kirimlar"),
+                builder: (context,
+                    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                  if (!snapshot.hasData ||
+                      snapshot.connectionState == ConnectionState.waiting) {
+                    return const LoadingIndicator();
+                  }
+                  if (snapshot.hasError ||
+                      snapshot.connectionState == ConnectionState.none) {
+                    return const Text("Internetingizni tekshiring!");
+                  }
+                  List<IoModel> data =
+                      snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
+                  return ListView.separated(
+                    separatorBuilder: (_, __) {
+                      return SizedBox(
+                        height: 10.0,
+                      );
+                    },
+                    itemBuilder: (context, index) {
+                      return TushumWidget(
+                        budgetInfo: data[index].cause,
+                        budgetName: data[index].category,
+                        icon:data[index].icon,
+                        budgetPrice: data[index].amount,
+                        time: DateTime.now(),
+                      );
+                    },
+                    itemCount: 3,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                  );
+                }),
           ),
         ],
       ),
     );
-  }
-
-  getUserInfo() async {
-    _firestore
-        .collection("users")
-        .doc("${widget.ismlogin}")
-        .get()
-        .then((value) {
-      userInfoMain = value;
-      isLoading = false;
-      setState(() {});
-    });
   }
 }

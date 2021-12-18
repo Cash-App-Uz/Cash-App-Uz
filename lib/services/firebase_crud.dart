@@ -3,12 +3,8 @@ import 'package:cash_app/constants/imports.dart';
 //Diyorbek
 class Api {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   late CollectionReference ref;
-  final String path;
-  Api(this.path) {
-    ref = _db.collection(path);
-  }
+
   Future<QuerySnapshot> getDataCollection() async {
     return ref.get();
   }
@@ -16,7 +12,8 @@ class Api {
   Future<List<Map<String, dynamic>>> getDocuments(String docPath) async {
     List<Map<String, dynamic>>? data;
     try {
-      QuerySnapshot<Object?> querySnapshot = await ref.get();
+      QuerySnapshot<Object?> querySnapshot =
+          await _db.collection(docPath).get();
       for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
         data!.add(doc.data() as Map<String, dynamic>);
       }
