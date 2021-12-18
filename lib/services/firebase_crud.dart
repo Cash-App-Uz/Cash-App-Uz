@@ -1,4 +1,5 @@
 import 'package:cash_app/constants/imports.dart';
+
 //Diyorbek
 class Api {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -12,33 +13,17 @@ class Api {
     return ref.get();
   }
 
-  Future<List<IoModel>> getDocuments() async {
-    List<IoModel> ioData = [];
-
-    QuerySnapshot<Object?> a = await ref
-        .where(
-          "category",
-          isEqualTo: "express",
-        )
-        .get();
+  Future<List<Map<String, dynamic>>> getDocuments(String docPath) async {
+    List<Map<String, dynamic>>? data;
     try {
-      for (QueryDocumentSnapshot<Object?> io in a.docs) {
-        ioData.add(IoModel.fromJson(io.data() as Map<String, dynamic>));
+      QuerySnapshot<Object?> querySnapshot = await ref.get();
+      for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
+        data!.add(doc.data() as Map<String, dynamic>);
       }
     } catch (e) {
-      e.toString();
+      e;
     }
-
-    QuerySnapshot data = await ref.get();
-    try {
-      for (QueryDocumentSnapshot<Object?> io in data.docs) {
-        ioData.add(IoModel.fromJson(io.data() as Map<String, dynamic>));
-      }
-    } catch (e) {
-      e.toString();
-    }
-
-    return ioData;
+    return data!;
   }
 
   Stream<QuerySnapshot> streamDataCollection() {
@@ -53,7 +38,7 @@ class Api {
     ref.doc(id).delete();
   }
 
-  Future<DocumentReference> addDocument(Map<String,dynamic> data) {
+  Future<DocumentReference> addDocument(Map<String, dynamic> data) {
     return ref.add(data);
   }
 
