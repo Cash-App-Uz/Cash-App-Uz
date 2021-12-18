@@ -109,7 +109,7 @@ class _BodyState extends State<Body> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "SMS ni\nTASDIQLASH",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),

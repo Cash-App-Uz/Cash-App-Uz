@@ -53,7 +53,7 @@ class Api {
     ref.doc(id).delete();
   }
 
-  Future<DocumentReference> addDocument(Map data) {
+  Future<DocumentReference> addDocument(Map<String,dynamic> data) {
     return ref.add(data);
   }
 
