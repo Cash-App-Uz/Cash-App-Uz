@@ -21,11 +21,10 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     _firestore
         .collection("users")
-        .doc("${widget.ismlogin}")
+        .doc(widget.ismlogin)
         .get()
         .then((value) {
       userInfo = value;
-      isLoading = false;
       setState(() {});
     });
     super.initState();

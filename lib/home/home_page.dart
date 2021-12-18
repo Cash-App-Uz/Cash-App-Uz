@@ -1,5 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/services/storage_service.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +21,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    MyPref().init().whenComplete(() {
+      
+      MyPref().name = widget.ismlogin;
+    });
     getUserInfo();
     super.initState();
     controllerTab = TabController(length: 3, vsync: this);

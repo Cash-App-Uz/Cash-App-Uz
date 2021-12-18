@@ -6,20 +6,13 @@ class MyPref {
   }
 
   GetStorage box = GetStorage();
-  var a = GetStorage().read("name");
-  String get name => box.read("name");
+  String get name => box.read("name") ?? '';
 
-  int get password => box.read("password");
   set name(String name) {
     box.write("name", name);
   }
 
-  set password(int password) {
-    box.write("password", password);
-  }
-
   void delete() {
-    box.remove("password");
     box.remove("name");
   }
 }
