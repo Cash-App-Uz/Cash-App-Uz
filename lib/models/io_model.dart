@@ -19,7 +19,7 @@ class IoModel {
         category: json["category"],
         cause: json["cause"],
         icon: json["icon"],
-        time: json["time"],
+        time: (json["time"] as Timestamp).toDate(),
       );
 
   Map<String, dynamic> toJson() => {

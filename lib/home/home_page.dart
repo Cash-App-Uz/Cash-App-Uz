@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController controllerTab;
 
-  late DocumentSnapshot<Map<String, dynamic>> userInfoMain;
+  // late DocumentSnapshot<Map<String, dynamic>> userInfoMain;/
   bool isLoading = true;
   final Api _api = Api();
   final DateFormat formatter = DateFormat('dd.MM.yyyy');
@@ -47,8 +47,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return !isLoading
-        ? Scaffold(
+    return  Scaffold(
             appBar: buildAppBar(widget.ismlogin),
             body: SizedBox.expand(
               child: PageView(
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      appBarBottomSection(controllerTab, userInfoMain['pul']),
+                      appBarBottomSection(controllerTab, 1000),
                       _mainBody(),
                     ],
                   ),
@@ -100,7 +99,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ],
             ),
           )
-        : LoadingIndicator();
+       ;
   }
 
   /// Main Body
@@ -129,37 +128,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             physics: BouncingScrollPhysics(),
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                return ChiqimWidget(
-                  budgetInfo: "benzinga",
-                  budgetName: "yoqilg'i",
-                  icon:
-                      "https://previews.123rf.com/images/ladyminnie/ladyminnie1111/ladyminnie111100002/11164518-view-from-income-and-outcome-of-the-finances-isolated-on-white.jpg",
-                  budgetPrice: 349,
-                  time: DateTime.now(),
-                );
-              },
-              itemCount: 1,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-            ),
-          ),
-          SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            physics: BouncingScrollPhysics(),
             child: FutureBuilder(
-                future: _api.getDocuments("kassa/${widget.ismlogin}/kirimlar"),
+                future: _api.getDocuments("kassa/${widget.ismlogin}/chiqimlar"),
                 builder: (context,
                     AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                   if (!snapshot.hasData ||
                       snapshot.connectionState == ConnectionState.waiting) {
-                    return const LoadingIndicator();
+
+                    return const Center(child: LoadingIndicator(),);
                   }
                   if (snapshot.hasError ||
                       snapshot.connectionState == ConnectionState.none) {
-                    return const Text("Internetingizni tekshiring!");
+                    return const Center(child: Text("Internetingizni tekshiring!"),);
                   }
+                  // print(snapshot.data);
                   List<IoModel> data =
                       snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
                   return ListView.separated(
@@ -177,7 +159,47 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         time: DateTime.now(),
                       );
                     },
-                    itemCount: 3,
+                    itemCount: data.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                  );
+                }),
+          ),
+          SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            physics: BouncingScrollPhysics(),
+            child: FutureBuilder(
+                future: _api.getDocuments("kassa/${widget.ismlogin}/kirimlar"),
+                builder: (context,
+                    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                  if (!snapshot.hasData ||
+                      snapshot.connectionState == ConnectionState.waiting) {
+
+                    return const Center(child: LoadingIndicator(),);
+                  }
+                  if (snapshot.hasError ||
+                      snapshot.connectionState == ConnectionState.none) {
+                    return const Center(child: Text("Internetingizni tekshiring!"),);
+                  }
+                  // print(snapshot.data);
+                  List<IoModel> data =
+                      snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
+                  return ListView.separated(
+                    separatorBuilder: (_, __) {
+                      return SizedBox(
+                        height: 10.0,
+                      );
+                    },
+                    itemBuilder: (context, index) {
+                      return TushumWidget(
+                        budgetInfo: data[index].cause,
+                        budgetName: data[index].category,
+                        icon:data[index].icon,
+                        budgetPrice: data[index].amount,
+                        time: DateTime.now(),
+                      );
+                    },
+                    itemCount: data.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                   );

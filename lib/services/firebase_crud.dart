@@ -10,17 +10,18 @@ class Api {
   }
 
   Future<List<Map<String, dynamic>>> getDocuments(String docPath) async {
-    List<Map<String, dynamic>>? data;
+    List<Map<String, dynamic>> data=[];
     try {
       QuerySnapshot<Object?> querySnapshot =
           await _db.collection(docPath).get();
       for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
-        data!.add(doc.data() as Map<String, dynamic>);
+        data.add(doc.data() as Map<String, dynamic>);
       }
     } catch (e) {
       e;
     }
-    return data!;
+
+    return data;
   }
 
   Stream<QuerySnapshot> streamDataCollection() {

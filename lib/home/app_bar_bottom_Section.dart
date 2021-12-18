@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 Ink appBarBottomSection(TabController controllerTab, userInfoMain) {
     return Ink(
       padding: EdgeInsets.symmetric(horizontal: 50),
-      width: double.infinity,
+      width: 500.0,
       decoration: BoxDecoration(
         color: Colors.deepPurpleAccent,
         borderRadius: BorderRadius.only(
