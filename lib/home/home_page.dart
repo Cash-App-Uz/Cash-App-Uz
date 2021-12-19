@@ -154,8 +154,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 }),
           ),
           SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            physics: BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
                 future: _api.getDocuments("kassa/${widget.ismlogin}", "income"),
                 builder: (context,
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
                   return ListView.separated(
                     separatorBuilder: (_, __) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 10.0,
                       );
                     },

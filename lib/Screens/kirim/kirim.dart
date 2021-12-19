@@ -1,4 +1,3 @@
-
 // import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:cash_app/constants/imports.dart';
@@ -6,7 +5,7 @@ import 'package:cash_app/constants/imports.dart';
 class KirimPage extends StatefulWidget {
   String ismlogin;
 
-    static TextEditingController budgetName = TextEditingController();
+  static TextEditingController budgetName = TextEditingController();
 
   KirimPage(this.ismlogin);
   @override
@@ -237,47 +236,39 @@ class _KirimPageState extends State<KirimPage> {
               getInfo();
               try {
                 Map<String, dynamic> data2 = Map();
+                data2["type"] = "income";
                 data2["category"] = activeCategory;
                 data2["icon"] = icon;
                 data2["amount"] = budgetPrice.text;
                 data2["cause"] = KirimPage.budgetName.text;
                 data2["time"] = FieldValue.serverTimestamp();
                 await _firestore
-                  .collection("kassa")
-                  .doc(widget.ismlogin)
-                  .collection("kirimlar")
-                  .doc(KirimPage.budgetName.text)
-                  .set(data2)
-                  .then(
-                    (value) => debugPrint("Data is successfully added!"),
-                  );
+                    .collection("kassa")
+                    .doc(widget.ismlogin)
+                    .collection("expenses")
+                    .add(data2)
+                    .then(
+                      (value) => debugPrint("Data is successfully added!"),
+                    );
               } catch (e) {
                 debugPrint(e.toString());
               }
               num result = userInfo["pul"] + int.parse(budgetPrice.text);
-              await _firestore
-                  .collection("users")
-                  .doc("${widget.ismlogin}")
-                  .update({
+              await _firestore.collection("users").doc(widget.ismlogin).update({
                 "pul": result,
               }).then(
                 (value) => debugPrint("Update! "),
               );
-              
             },
           )
         ],
       ),
     );
   }
-   getInfo() async {
-    _firestore
-        .collection("users")
-        .doc(widget.ismlogin)
-        .get()
-        .then((value) {
-      userInfo = value;
 
+  getInfo() async {
+    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
+      userInfo = value;
       setState(() {});
     });
   }
