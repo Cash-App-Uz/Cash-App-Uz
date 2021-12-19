@@ -9,11 +9,16 @@ class Api {
     return ref.get();
   }
 
-  Future<List<Map<String, dynamic>>> getDocuments(String docPath) async {
-    List<Map<String, dynamic>> data=[];
+  Future<List<Map<String, dynamic>>> getDocuments(String docPath,
+      [String? category]) async {
+    List<Map<String, dynamic>> data = [];
     try {
-      QuerySnapshot<Object?> querySnapshot =
-          await _db.collection(docPath).get();
+      QuerySnapshot<Object?> querySnapshot = category != null
+          ? await _db
+              .collection(docPath)
+              .where("type", isEqualTo: category)
+              .get()
+          : await _db.collection(docPath).get();
       for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
         data.add(doc.data() as Map<String, dynamic>);
       }
