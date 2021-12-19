@@ -1,5 +1,3 @@
-
-
 import 'package:cash_app/constants/imports.dart';
 
 class CreatBudgetPage extends StatefulWidget {
@@ -47,7 +45,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: const [
                       Text(
                         "Chiqim Xarajatlari",
                         style: TextStyle(
@@ -71,11 +69,11 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                   color: Colors.black.withOpacity(0.5)),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
                 children: List.generate(categories.length, (index) {
@@ -91,7 +89,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                     left: 10,
                   ),
                   child: Container(
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                       left: 10,
                     ),
                     width: 150,
@@ -135,7 +133,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                               )),
                           Text(
                             categories[index]['name'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
@@ -148,7 +146,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               );
             })),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
           Padding(
@@ -156,7 +154,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Xarajat tasnifi",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
@@ -166,26 +164,26 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                 TextField(
                   controller: budgetName,
                   cursorColor: Colors.black,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Nima uchun xarajat qildingiz...",
                       border: InputBorder.none),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: (size.width - 140),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Xarajat miqdori",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
@@ -199,11 +197,11 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                             ],
                             controller: budgetPrice,
                             cursorColor: Colors.black,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: "Qancha xarajat qildingiz?",
                                 border: InputBorder.none),
                           ),
@@ -220,6 +218,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
             press: () async {
               getInfo();
               Map<String, dynamic> data2 = Map();
+              data2["type"] = "outcome";
               data2["category"] = activeCategory;
               data2["icon"] = icon;
               data2["amount"] = budgetPrice.text;
@@ -228,18 +227,14 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               await _firestore
                   .collection("kassa")
                   .doc(widget.ismlogin)
-                  .collection("chiqimlar")
-                  .doc(budgetName.text)
-                  .set(data2)
+                  .collection("expenses")
+                  .add(data2)
                   .then(
                     (value) => debugPrint("Data is successfully added!"),
                   );
 
               num result = userInfo["pul"] - int.parse(budgetPrice.text);
-              await _firestore
-                  .collection("users")
-                  .doc(widget.ismlogin)
-                  .update({
+              await _firestore.collection("users").doc(widget.ismlogin).update({
                 "pul": result,
               }).then(
                 (value) => debugPrint("Update! "),
@@ -252,11 +247,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   }
 
   getInfo() async {
-    _firestore
-        .collection("users")
-        .doc(widget.ismlogin)
-        .get()
-        .then((value) {
+    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
       userInfo = value;
 
       setState(() {});
