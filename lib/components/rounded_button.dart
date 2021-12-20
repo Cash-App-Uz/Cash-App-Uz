@@ -1,4 +1,5 @@
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/constants/size_config.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -16,7 +17,7 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: getHeight(10.0)),
       width: size.width * 0.8,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
@@ -36,10 +37,17 @@ class RoundedButton extends StatelessWidget {
       ),
       onPressed: press,
       style: ElevatedButton.styleFrom(
-          primary: color,
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-          textStyle: TextStyle(
-              color: textColor, fontSize: 14, fontWeight: FontWeight.w500)),
+        primary: color,
+        padding: EdgeInsets.symmetric(
+          horizontal: getWidth(40.0),
+          vertical: getHeight(20.0),
+        ),
+        textStyle: TextStyle(
+          color: textColor,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 }

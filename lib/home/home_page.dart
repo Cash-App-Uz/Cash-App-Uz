@@ -1,8 +1,8 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
-import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   final String ismlogin;
@@ -43,11 +43,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: buildAppBar(widget.ismlogin),
       body: SizedBox.expand(
         child: PageView(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           onPageChanged: (index) {
             setState(() => _currentIndex = index);
@@ -73,23 +74,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         },
         items: <BottomNavyBarItem>[
           BottomNavyBarItem(
-              title: Text('Asosiy'),
-              icon: Icon(Icons.home),
+              title: const Text('Asosiy'),
+              icon: const Icon(Icons.home),
               inactiveColor: _secondaryColor,
               activeColor: _primaryColor),
           BottomNavyBarItem(
-              title: Text('Kirim'),
-              icon: Icon(Icons.attach_money_rounded),
+              title: const Text('Kirim'),
+              icon: const Icon(Icons.attach_money_rounded),
               inactiveColor: _secondaryColor,
               activeColor: _primaryColor),
           BottomNavyBarItem(
-              title: Text('Chiqim'),
-              icon: Icon(Icons.money_off_csred_outlined),
+              title: const Text('Chiqim'),
+              icon: const Icon(Icons.money_off_csred_outlined),
               inactiveColor: _secondaryColor,
               activeColor: _primaryColor),
           BottomNavyBarItem(
-              title: Text('Profil'),
-              icon: Icon(Icons.person),
+              title: const Text('Profil'),
+              icon: const Icon(Icons.person),
               inactiveColor: _secondaryColor,
               activeColor: _primaryColor),
         ],
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         controller: controllerTab,
         children: [
           SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
                 future: _api.getDocuments("kassa/${widget.ismlogin}", "income"),
@@ -127,7 +128,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   return ListView.separated(
                     separatorBuilder: (_, __) {
                       return SizedBox(
-                        height: 10.0,
+                        height: getHeight(10.0),
                       );
                     },
                     itemBuilder: (context, index) {
@@ -149,12 +150,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                     itemCount: data.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                   );
                 }),
           ),
           SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
                 future: _api.getDocuments("kassa/${widget.ismlogin}", "income"),
@@ -176,8 +177,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
                   return ListView.separated(
                     separatorBuilder: (_, __) {
-                      return const SizedBox(
-                        height: 10.0,
+                      return  SizedBox(
+                        height: getHeight(10.0),
                       );
                     },
                     itemBuilder: (context, index) {
@@ -191,13 +192,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                     itemCount: data.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                   );
                 }),
           ),
           SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.symmetric(horizontal: getWidth(20.0), vertical: getHeight(30.0)),
+            physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
                 future:
                     _api.getDocuments("kassa/${widget.ismlogin}", "outcome"),
@@ -220,7 +221,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   return ListView.separated(
                     separatorBuilder: (_, __) {
                       return SizedBox(
-                        height: 10.0,
+                        height: getHeight(10.0),
                       );
                     },
                     itemBuilder: (context, index) {
@@ -234,7 +235,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                     itemCount: data.length,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                   );
                 }),
           ),

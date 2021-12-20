@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -10,7 +11,7 @@ class LoadingIndicator extends StatelessWidget {
             backgroundColor: Colors.deepPurpleAccent,
             body: Center(
               child: SpinKitSpinningLines(
-                size: 70.0,
+                size: getHeight(70.0),
                 color: Colors.deepOrangeAccent,
               ),
             ),

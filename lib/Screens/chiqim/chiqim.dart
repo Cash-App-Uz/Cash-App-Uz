@@ -1,4 +1,5 @@
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/constants/size_config.dart';
 
 class CreatBudgetPage extends StatefulWidget {
   String ismlogin;
@@ -9,11 +10,11 @@ class CreatBudgetPage extends StatefulWidget {
 
 class _CreatBudgetPageState extends State<CreatBudgetPage> {
   String activeCategory = categories[0]['name'];
+  String icon = categories[0]['icon'];
   late DocumentSnapshot userInfo;
   TextEditingController budgetName = TextEditingController();
   TextEditingController budgetPrice = TextEditingController();
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late String icon;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -39,17 +40,20 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               ),
             ]),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, right: 20, left: 20, bottom: 20),
+              padding: EdgeInsets.only(
+                  top: getHeight(30.0),
+                  right: getWidth(20.0),
+                  left: getWidth(20.0),
+                  bottom: getHeight(20.0)),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Chiqim Xarajatlari",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: getWidth(20.0),
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
@@ -60,17 +64,20 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            padding: EdgeInsets.only(
+                left: getWidth(20.0),
+                right: getWidth(20.0),
+                top: getHeight(20.0)),
             child: Text(
               "Kategoriyani tanlang",
               style: TextStyle(
-                  fontSize: 16,
+                  fontSize: getWidth(16.0),
                   fontWeight: FontWeight.bold,
                   color: Colors.black.withOpacity(0.5)),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: getHeight(20.0),
           ),
           SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -85,19 +92,19 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                   });
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10,
+                  padding: EdgeInsets.only(
+                    left: getWidth(10.0),
                   ),
                   child: Container(
-                    margin: const EdgeInsets.only(
-                      left: 10,
+                    margin: EdgeInsets.only(
+                      left: getWidth(10.0),
                     ),
-                    width: 150,
-                    height: 170,
+                    width: getWidth(150.0),
+                    height: getHeight(180.0),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                            width: 2,
+                            width: getWidth(2.0),
                             color: activeCategory == categories[index]['name']
                                 ? Colors.deepOrangeAccent
                                 : Colors.transparent),
@@ -111,31 +118,34 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                           ),
                         ]),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, top: 20, bottom: 20),
+                      padding: EdgeInsets.only(
+                          left: getWidth(25.0),
+                          right: getWidth(25.0),
+                          top: getHeight(20.0),
+                          bottom: getHeight(20.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              width: 80,
-                              height: 80,
+                              width: getWidth(80.0),
+                              height: getWidth(80.0),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.grey.withOpacity(0.15)),
                               child: Center(
                                 child: Image.network(
                                   categories[index]['icon'],
-                                  width: 60,
-                                  height: 60,
+                                  width: getWidth(60.0),
+                                  height: getWidth(60.0),
                                   fit: BoxFit.contain,
                                 ),
                               )),
                           Text(
                             categories[index]['name'],
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: getWidth(18.0),
                             ),
                           )
                         ],
@@ -146,34 +156,35 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               );
             })),
           ),
-          const SizedBox(
-            height: 50,
+          SizedBox(
+            height: getHeight(50.0),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding:
+                EdgeInsets.only(left: getWidth(20.0), right: getWidth(20.0)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   "Xarajat tasnifi",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: Color(0xff67727d)),
+                      fontSize: getWidth(13.0),
+                      color: const Color(0xff67727d)),
                 ),
                 TextField(
                   controller: budgetName,
                   cursorColor: Colors.black,
-                  style: const TextStyle(
-                      fontSize: 17,
+                  style: TextStyle(
+                      fontSize: getWidth(17.0),
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                   decoration: const InputDecoration(
                       hintText: "Nima uchun xarajat qildingiz...",
                       border: InputBorder.none),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: getHeight(20.0),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,12 +194,12 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Xarajat miqdori",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 13,
-                                color: Color(0xff67727d)),
+                                fontSize: getWidth(13.0),
+                                color: const Color(0xff67727d)),
                           ),
                           TextField(
                             keyboardType: TextInputType.number,
@@ -197,8 +208,8 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                             ],
                             controller: budgetPrice,
                             cursorColor: Colors.black,
-                            style: const TextStyle(
-                                fontSize: 17,
+                            style: TextStyle(
+                                fontSize: getWidth(17.0),
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                             decoration: const InputDecoration(

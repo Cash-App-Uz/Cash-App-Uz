@@ -3,7 +3,7 @@ import 'package:cash_app/constants/imports.dart';
 
 class RoundedSmsCodeField extends StatefulWidget {
   final ValueChanged<String> onChanged;
-  RoundedSmsCodeField({
+  const RoundedSmsCodeField({
     Key? key,
   required   this.onChanged,
   }) : super(key: key);
@@ -26,7 +26,7 @@ class _RoundedSmsCodeFieldState extends State<RoundedSmsCodeField> {
         obscureText: password,
         onChanged: widget.onChanged,
         cursorColor: kPrimaryColor,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: "Sms Kodni kiriting",
           icon: Icon(
             Icons.sms_rounded,

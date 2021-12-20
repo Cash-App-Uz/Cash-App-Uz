@@ -1,6 +1,7 @@
 // import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/constants/size_config.dart';
 
 class KirimPage extends StatefulWidget {
   String ismlogin;
@@ -14,18 +15,15 @@ class KirimPage extends StatefulWidget {
 
 class _KirimPageState extends State<KirimPage> {
   String activeCategory = categories[0]['name'];
+  String icon = categories[0]['icon'];
   TextEditingController budgetPrice = TextEditingController();
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late DocumentSnapshot userInfo;
-  late String icon;
+
   @override
   void initState() {
-    _firestore
-        .collection("users")
-        .doc("${widget.ismlogin}")
-        .get()
-        .then((value) {
+    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
       userInfo = value;
       super.initState();
     });
@@ -56,8 +54,11 @@ class _KirimPageState extends State<KirimPage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 30, right: 20, left: 20, bottom: 20),
+              padding: EdgeInsets.only(
+                  top: getHeight(30.0),
+                  right: getWidth(20.0),
+                  left: getWidth(20.0),
+                  bottom: getHeight(20.0)),
               child: Column(
                 children: [
                   Row(
@@ -66,7 +67,7 @@ class _KirimPageState extends State<KirimPage> {
                       Text(
                         "Kelgan Mablag'lar",
                         style: TextStyle(
-                            fontSize: 20,
+                            fontSize: getWidth(20.0),
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
@@ -77,20 +78,23 @@ class _KirimPageState extends State<KirimPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            padding: EdgeInsets.only(
+                left: getWidth(20.0),
+                right: getWidth(20.0),
+                top: getHeight(20.0)),
             child: Text(
               "Kategoriyani tanlang",
               style: TextStyle(
-                  fontSize: 16,
+                  fontSize: getWidth(16.0),
                   fontWeight: FontWeight.bold,
                   color: Colors.black.withOpacity(0.5)),
             ),
           ),
           SizedBox(
-            height: 20,
+            height: getHeight(30.0),
           ),
           SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,
             child: Row(
                 children: List.generate(categories.length, (index) {
@@ -102,21 +106,21 @@ class _KirimPageState extends State<KirimPage> {
                   });
                 },
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10,
+                  padding: EdgeInsets.only(
+                    left: getWidth(10.0),
                   ),
                   child: Container(
                     margin: EdgeInsets.only(
-                      left: 10,
+                      left: getWidth(10.0),
                     ),
-                    width: 150,
-                    height: 170,
+                    width: getWidth(150.0),
+                    height: getHeight(180.0),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
                             width: 2,
                             color: activeCategory == categories[index]['name']
-                                ? Color(0xFFFF3378)
+                                ? const Color(0xFFFF3378)
                                 : Colors.transparent),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -128,31 +132,34 @@ class _KirimPageState extends State<KirimPage> {
                           ),
                         ]),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, top: 20, bottom: 20),
+                      padding: EdgeInsets.only(
+                          left: getWidth(25.0),
+                          right: getWidth(25.0),
+                          top: getHeight(20.0),
+                          bottom: getHeight(20.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                              width: 80,
-                              height: 80,
+                              width: getWidth(60.0),
+                              height: getWidth(60.0),
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Colors.grey.withOpacity(0.15)),
                               child: Center(
                                 child: Image.network(
                                   categories[index]['icon'],
-                                  width: 60,
-                                  height: 60,
+                                  width: getWidth(60.0),
+                                  height: getWidth(60.0),
                                   fit: BoxFit.contain,
                                 ),
                               )),
                           Text(
                             categories[index]['name'],
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: getWidth(18.0),
                             ),
                           )
                         ],
@@ -164,10 +171,10 @@ class _KirimPageState extends State<KirimPage> {
             })),
           ),
           SizedBox(
-            height: 50,
+            height: getHeight(50.0),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: EdgeInsets.symmetric(horizontal: getWidth(20.0)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -175,27 +182,27 @@ class _KirimPageState extends State<KirimPage> {
                   "Qayerdan keldi",
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      fontSize: 13,
-                      color: Color(0xff67727d)),
+                      fontSize: getWidth(13.0),
+                      color: const Color(0xff67727d)),
                 ),
                 TextField(
                   controller: KirimPage.budgetName,
                   cursorColor: Colors.black,
                   style: TextStyle(
-                      fontSize: 17,
+                      fontSize: getWidth(17.0),
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Nima sababdan keldi...",
                       border: InputBorder.none),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: getHeight(20.0),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: (size.width - 140),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,8 +211,8 @@ class _KirimPageState extends State<KirimPage> {
                             "Pul miqdori",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 13,
-                                color: Color(0xff67727d)),
+                                fontSize: getWidth(13.0),
+                                color: const Color(0xff67727d)),
                           ),
                           TextField(
                             inputFormatters: <TextInputFormatter>[
@@ -215,10 +222,10 @@ class _KirimPageState extends State<KirimPage> {
                             controller: budgetPrice,
                             cursorColor: Colors.black,
                             style: TextStyle(
-                                fontSize: 17,
+                                fontSize: getWidth(17.0),
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 hintText: "Qancha pul keldi?",
                                 border: InputBorder.none),
                           ),

@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
 
 class TushumWidget extends StatelessWidget {
@@ -16,7 +17,7 @@ class TushumWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Ink(
-      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: getWidth(30.0), vertical: getHeight(16.0)),
       decoration: BoxDecoration(
         color: Colors.deepOrangeAccent,
         borderRadius: BorderRadius.circular(30),
@@ -24,7 +25,7 @@ class TushumWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.deepOrangeAccent.withOpacity(0.4),
-            offset: Offset(0, 8),
+            offset: const Offset(0, 8),
             blurRadius: 10,
           ),
         ],
@@ -34,16 +35,16 @@ class TushumWidget extends StatelessWidget {
           Stack(
             children: <Widget>[
               SizedBox(
-                  width: 60,
-                  height: 60,
+                  width: getWidth(80.0),
+                  height: getWidth(80.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkImage("$icon"),
+                    backgroundImage: NetworkImage(icon),
                   )),
             ],
           ),
           SizedBox(
-            width: 30,
+            width: getWidth(30.0),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,34 +54,34 @@ class TushumWidget extends StatelessWidget {
                 budgetPrice.toString(),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: getWidth(20.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: getHeight(10.0),
               ),
               Text(
                 budgetName,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 20,
+                  fontSize: getWidth(20.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: getHeight(10.0),
               ),
               Text(
                 time.toString(),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 10,
+                  fontSize: getWidth(10.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: getHeight(10.0),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * .4,
@@ -88,7 +89,7 @@ class TushumWidget extends StatelessWidget {
                   budgetInfo,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
+                    fontSize: getWidth(12.0),
                     fontWeight: FontWeight.w500,
                   ),
                 ),

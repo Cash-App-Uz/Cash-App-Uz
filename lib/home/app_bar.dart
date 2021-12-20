@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
 
 AppBar buildAppBar(String name) {
@@ -8,13 +9,13 @@ AppBar buildAppBar(String name) {
         name,
         style: TextStyle(
           color: Colors.white,
-          fontSize: 20,
+          fontSize: getWidth(20.0),
           fontWeight: FontWeight.w600,
         ),
       ),
       actions: <Widget>[
         Padding(
-          padding: EdgeInsets.only(right: 20),
+          padding: EdgeInsets.only(right: getWidth(20.0)),
           child: GestureDetector(
             onTap: () => print('Profile Tapped'),
             child: CircleAvatar(
