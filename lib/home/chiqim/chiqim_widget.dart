@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class ChiqimWidget extends StatelessWidget {
   const ChiqimWidget(
-      {required this.icon,
+      {Key? key, required this.icon,
       required this.budgetName,
       required this.budgetInfo,
       required this.budgetPrice,
-      required this.time});
+      required this.time}) : super(key: key);
 
   final String icon;
   final String budgetName;

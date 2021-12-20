@@ -233,7 +233,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               data2["type"] = "outcome";
               data2["category"] = activeCategory;
               data2["icon"] = icon;
-              data2["amount"] = budgetPrice.text;
+              data2["amount"] = num.parse(budgetPrice.text);
               data2["cause"] = budgetName.text;
               data2["time"] = FieldValue.serverTimestamp();
               await _firestore

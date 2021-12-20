@@ -245,7 +245,7 @@ class _KirimPageState extends State<KirimPage> {
                 data2["type"] = "income";
                 data2["category"] = activeCategory;
                 data2["icon"] = icon;
-                data2["amount"] = budgetPrice.text;
+                data2["amount"] = num.parse(budgetPrice.text);
                 data2["cause"] = KirimPage.budgetName.text;
                 data2["time"] = FieldValue.serverTimestamp();
                 await _firestore

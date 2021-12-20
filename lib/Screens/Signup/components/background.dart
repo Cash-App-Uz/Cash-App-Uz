@@ -12,7 +12,7 @@ class Background extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height,
-      width: double.infinity,
+      width: size.width,
       // Here i can use size.width but use double.infinity because both work as a same
       child: Stack(
         alignment: Alignment.center,

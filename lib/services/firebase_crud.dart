@@ -17,8 +17,12 @@ class Api {
           ? await _db
               .collection(docPath)
               .where("type", isEqualTo: category)
+              .orderBy("time", descending: true)
               .get()
-          : await _db.collection(docPath).get();
+          : await _db
+              .collection(docPath)
+              .orderBy("time", descending: true)
+              .get();
       for (QueryDocumentSnapshot<Object?> doc in querySnapshot.docs) {
         data.add(doc.data() as Map<String, dynamic>);
       }
