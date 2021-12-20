@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 final oCcy = NumberFormat("#,##0", "en_US");
 
-Ink appBarBottomSection(TabController controllerTab, userInfoMain) {
+Ink appBarBottomSection(TabController controllerTab, userInfoPul) {
   return Ink(
     padding: EdgeInsets.symmetric(horizontal: getWidth(50.0)),
     width: 500.0,
@@ -34,7 +34,7 @@ Ink appBarBottomSection(TabController controllerTab, userInfoMain) {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Text(
-              oCcy.format(userInfoMain),
+              oCcy.format(userInfoPul),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: getWidth(45.0),
