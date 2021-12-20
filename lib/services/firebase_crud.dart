@@ -3,11 +3,6 @@ import 'package:cash_app/constants/imports.dart';
 //Diyorbek
 class Api {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  late CollectionReference ref;
-
-  Future<QuerySnapshot> getDataCollection() async {
-    return ref.get();
-  }
 
   Future<List<Map<String, dynamic>>> getDocuments(String docPath,
       [String? category]) async {
@@ -33,23 +28,26 @@ class Api {
     return data;
   }
 
-  Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots();
+  Stream<QuerySnapshot> streamDataCollection(String collectionPath) async* {
+    yield* _db.collection(collectionPath).snapshots();
   }
 
-  Future<DocumentSnapshot> getDocumentById(String id) async {
-    return ref.doc(id).get();
+  Future<DocumentSnapshot> getDocumentById(
+      String id, String collectionPath) async {
+    return await _db.collection(collectionPath).doc(id).get();
   }
 
-  Future<void> removeDocument(String id) async {
-    ref.doc(id).delete();
+  Future<void> removeDocument(String id, String collectionPath) async {
+    await _db.collection(collectionPath).doc(id).delete();
   }
 
-  Future<DocumentReference> addDocument(Map<String, dynamic> data) {
-    return ref.add(data);
+  Future<DocumentReference> addDocument(
+      Map<String, dynamic> data, String collectionPath) {
+    return _db.collection(collectionPath).add(data);
   }
 
-  Future<void> updateDocument(Map<String, dynamic> data, String id) async {
-    return ref.doc(id).update(data);
+  Future<void> updateDocument(
+      Map<String, dynamic> data, String id, String collectionPath) async {
+    return _db.collection(collectionPath).doc(id).update(data);
   }
 }

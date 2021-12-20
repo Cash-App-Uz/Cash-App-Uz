@@ -1,6 +1,7 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/core/paths.dart';
 import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 
@@ -15,15 +16,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController controllerTab;
   final Api _api = Api();
-  // final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  // DocumentSnapshot? userInfo;
 
   @override
   void initState() {
-    // _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
-    //   userInfo = value;
-    //   setState(() {});
-    // });
     MyPref().init().whenComplete(() {
       MyPref().name = widget.ismlogin;
     });
@@ -41,8 +36,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _pageController.dispose();
     super.dispose();
   }
-
-  String type = "all";
 
   static const Color _primaryColor = Colors.deepPurpleAccent;
   static const Color _secondaryColor = Colors.deepOrangeAccent;
@@ -115,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
-              future: _api.getDocuments("kassa/${widget.ismlogin}/expenses"),
+              future: _api.getDocuments(Paths.expenses),
               builder: (context,
                   AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                 if (!snapshot.hasData ||
@@ -167,8 +160,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
-                future: _api.getDocuments(
-                    "kassa/${widget.ismlogin}/expenses", "outcome"),
+                future: _api.getDocuments(Paths.expenses, "outcome"),
                 builder: (context,
                     AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                   if (!snapshot.hasData ||
@@ -211,8 +203,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
-                future: _api.getDocuments(
-                    "kassa/${widget.ismlogin}/expenses", "income"),
+                future: _api.getDocuments(Paths.expenses, "income"),
                 builder: (context,
                     AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
                   if (!snapshot.hasData ||
