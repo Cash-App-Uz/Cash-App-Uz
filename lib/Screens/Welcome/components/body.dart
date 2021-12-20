@@ -1,9 +1,13 @@
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Body extends StatelessWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
     // This size provide us total height and width of our screen
     return Background(
@@ -11,7 +15,7 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
+            const Text(
               "KASSA DASTURIGA\nXUSH KELIBSIZ",
               textAlign: TextAlign.center,
               style: TextStyle(fontWeight: FontWeight.bold),

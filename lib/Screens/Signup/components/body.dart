@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cash_app/constants/imports.dart';
 
@@ -20,10 +21,11 @@ class _BodyState extends State<Body> {
 
   int? summa;
 
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     Size size = MediaQuery.of(context).size;
 
     return Background(
@@ -32,7 +34,7 @@ class _BodyState extends State<Body> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                 const Text(
                     "RO'YHATDAN\nO'TISH",
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -66,7 +68,7 @@ class _BodyState extends State<Body> {
                           phoneNumber: "+998" + "$phone",
                           verificationCompleted: (PhoneAuthCredential e) {},
                           verificationFailed: (FirebaseAuthException e) {},
-                          codeSent: (verificationId,  resendToken) {
+                          codeSent: (verificationId, resendToken) {
                             _verificationId = verificationId;
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {});
@@ -177,7 +179,7 @@ class _BodyState extends State<Body> {
                         );
                       }
                     })
-                : Center(),
+                :const Center(),
           ],
         ),
       ),

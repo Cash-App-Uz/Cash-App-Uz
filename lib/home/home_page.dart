@@ -50,60 +50,58 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return userInfo!['pul'] != null
-        ? Scaffold(
-            appBar: buildAppBar(widget.ismlogin),
-            body: SizedBox.expand(
-              child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
-                controller: _pageController,
-                onPageChanged: (index) {
-                  setState(() => _currentIndex = index);
-                },
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      appBarBottomSection(controllerTab, userInfo!['pul']),
-                      _mainBody(),
-                    ],
-                  ),
-                  KirimPage(widget.ismlogin),
-                  CreatBudgetPage(widget.ismlogin),
-                  ProfilePage(widget.ismlogin),
-                ],
-              ),
-            ),
-            bottomNavigationBar: BottomNavyBar(
-              selectedIndex: _currentIndex,
-              onItemSelected: (index) {
-                setState(() => _currentIndex = index);
-                _pageController.jumpToPage(index);
-              },
-              items: <BottomNavyBarItem>[
-                BottomNavyBarItem(
-                    title: const Text('Asosiy'),
-                    icon: const Icon(Icons.home),
-                    inactiveColor: _secondaryColor,
-                    activeColor: _primaryColor),
-                BottomNavyBarItem(
-                    title: const Text('Kirim'),
-                    icon: const Icon(Icons.attach_money_rounded),
-                    inactiveColor: _secondaryColor,
-                    activeColor: _primaryColor),
-                BottomNavyBarItem(
-                    title: const Text('Chiqim'),
-                    icon: const Icon(Icons.money_off_csred_outlined),
-                    inactiveColor: _secondaryColor,
-                    activeColor: _primaryColor),
-                BottomNavyBarItem(
-                    title: const Text('Profil'),
-                    icon: const Icon(Icons.person),
-                    inactiveColor: _secondaryColor,
-                    activeColor: _primaryColor),
+    return Scaffold(
+      appBar: buildAppBar(widget.ismlogin),
+      body: SizedBox.expand(
+        child: PageView(
+          physics: const NeverScrollableScrollPhysics(),
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() => _currentIndex = index);
+          },
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                appBarBottomSection(controllerTab, userInfo!['pul']),
+                _mainBody(),
               ],
             ),
-          )
-        : const LoadingIndicator();
+            KirimPage(widget.ismlogin),
+            CreatBudgetPage(widget.ismlogin),
+            ProfilePage(widget.ismlogin),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavyBar(
+        selectedIndex: _currentIndex,
+        onItemSelected: (index) {
+          setState(() => _currentIndex = index);
+          _pageController.jumpToPage(index);
+        },
+        items: <BottomNavyBarItem>[
+          BottomNavyBarItem(
+              title: const Text('Asosiy'),
+              icon: const Icon(Icons.home),
+              inactiveColor: _secondaryColor,
+              activeColor: _primaryColor),
+          BottomNavyBarItem(
+              title: const Text('Kirim'),
+              icon: const Icon(Icons.attach_money_rounded),
+              inactiveColor: _secondaryColor,
+              activeColor: _primaryColor),
+          BottomNavyBarItem(
+              title: const Text('Chiqim'),
+              icon: const Icon(Icons.money_off_csred_outlined),
+              inactiveColor: _secondaryColor,
+              activeColor: _primaryColor),
+          BottomNavyBarItem(
+              title: const Text('Profil'),
+              icon: const Icon(Icons.person),
+              inactiveColor: _secondaryColor,
+              activeColor: _primaryColor),
+        ],
+      ),
+    );
   }
 
   /// Main Body
@@ -117,51 +115,52 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 horizontal: getWidth(20.0), vertical: getHeight(30.0)),
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
-                future: _api.getDocuments("kassa/${widget.ismlogin}", "income"),
-                builder: (context,
-                    AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
-                  if (!snapshot.hasData ||
-                      snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: LoadingIndicator(),
-                    );
-                  }
-                  if (snapshot.hasError ||
-                      snapshot.connectionState == ConnectionState.none) {
-                    return const Center(
-                      child: Text("Internetingizni tekshiring!"),
-                    );
-                  }
-                  List<IoModel> data =
-                      snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
-                  return ListView.separated(
-                    separatorBuilder: (_, __) {
-                      return SizedBox(
-                        height: getHeight(10.0),
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      return data[index].type == "income"
-                          ? TushumWidget(
-                              budgetInfo: data[index].cause,
-                              budgetName: data[index].category,
-                              icon: data[index].icon,
-                              budgetPrice: data[index].amount,
-                              time: data[index].time,
-                            )
-                          : ChiqimWidget(
-                              budgetInfo: data[index].cause,
-                              budgetName: data[index].category,
-                              icon: data[index].icon,
-                              budgetPrice: data[index].amount,
-                              time: data[index].time,
-                            );
-                    },
-                    itemCount: data.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
+              future: _api.getDocuments("kassa/${widget.ismlogin}", "income"),
+              builder: (context,
+                  AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+                if (!snapshot.hasData ||
+                    snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: LoadingIndicator(),
                   );
-                }),
+                }
+                if (snapshot.hasError ||
+                    snapshot.connectionState == ConnectionState.none) {
+                  return const Center(
+                    child: Text("Internetingizni tekshiring!"),
+                  );
+                }
+                List<IoModel> data =
+                    snapshot.data!.map((e) => IoModel.fromJson(e)).toList();
+                return ListView.separated(
+                  separatorBuilder: (_, __) {
+                    return SizedBox(
+                      height: getHeight(10.0),
+                    );
+                  },
+                  itemBuilder: (context, index) {
+                    return data[index].type == "income"
+                        ? TushumWidget(
+                            budgetInfo: data[index].cause,
+                            budgetName: data[index].category,
+                            icon: data[index].icon,
+                            budgetPrice: data[index].amount,
+                            time: data[index].time,
+                          )
+                        : ChiqimWidget(
+                            budgetInfo: data[index].cause,
+                            budgetName: data[index].category,
+                            icon: data[index].icon,
+                            budgetPrice: data[index].amount,
+                            time: data[index].time,
+                          );
+                  },
+                  itemCount: data.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                );
+              },
+            ),
           ),
           SingleChildScrollView(
             padding: EdgeInsets.symmetric(
@@ -192,7 +191,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       );
                     },
                     itemBuilder: (context, index) {
-                      return TushumWidget(
+                      return ChiqimWidget(
                         budgetInfo: data[index].cause,
                         budgetName: data[index].category,
                         icon: data[index].icon,

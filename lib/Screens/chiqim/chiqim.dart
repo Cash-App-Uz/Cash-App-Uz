@@ -2,8 +2,8 @@ import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 
 class CreatBudgetPage extends StatefulWidget {
-  String ismlogin;
-  CreatBudgetPage(this.ismlogin);
+  final String ismlogin;
+  const CreatBudgetPage(this.ismlogin, {Key? key}) : super(key: key);
   @override
   _CreatBudgetPageState createState() => _CreatBudgetPageState();
 }
@@ -34,8 +34,8 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
             decoration: BoxDecoration(color: Colors.white, boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.01),
-                spreadRadius: 10,
-                blurRadius: 3,
+                spreadRadius: getWidth(10.0),
+                blurRadius: getWidth(3.0),
                 // changes position of shadow
               ),
             ]),
@@ -53,9 +53,10 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                       Text(
                         "Chiqim Xarajatlari",
                         style: TextStyle(
-                            fontSize: getWidth(20.0),
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          fontSize: getWidth(20.0),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                     ],
                   ),
@@ -100,7 +101,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                       left: getWidth(10.0),
                     ),
                     width: getWidth(150.0),
-                    height: getHeight(180.0),
+                    height: getHeight(186.0),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
@@ -190,7 +191,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: (size.width - 140),
+                      width: (size.width - getWidth(140.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

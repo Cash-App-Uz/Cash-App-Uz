@@ -1,14 +1,12 @@
-// import 'package:flutter_icons/flutter_icons.dart';
-
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 
 class KirimPage extends StatefulWidget {
-  String ismlogin;
+  final String ismlogin;
 
   static TextEditingController budgetName = TextEditingController();
 
-  KirimPage(this.ismlogin);
+  const KirimPage(this.ismlogin, {Key? key}) : super(key: key);
   @override
   _KirimPageState createState() => _KirimPageState();
 }
@@ -114,7 +112,7 @@ class _KirimPageState extends State<KirimPage> {
                       left: getWidth(10.0),
                     ),
                     width: getWidth(150.0),
-                    height: getHeight(180.0),
+                    height: getHeight(186.0),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
@@ -126,8 +124,8 @@ class _KirimPageState extends State<KirimPage> {
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.01),
-                            spreadRadius: 10,
-                            blurRadius: 3,
+                            spreadRadius: getWidth(10.0),
+                            blurRadius: getWidth(3.0),
                             // changes position of shadow
                           ),
                         ]),
@@ -203,7 +201,7 @@ class _KirimPageState extends State<KirimPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      width: (size.width - 140),
+                      width: (size.width - getWidth(140.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -226,8 +224,9 @@ class _KirimPageState extends State<KirimPage> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                             decoration: const InputDecoration(
-                                hintText: "Qancha pul keldi?",
-                                border: InputBorder.none),
+                              hintText: "Qancha pul keldi?",
+                              border: InputBorder.none,
+                            ),
                           ),
                         ],
                       ),
