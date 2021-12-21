@@ -150,8 +150,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () async {
                       if (nameController.text != "") {
-                        await _api.updateDocument({"name": nameController.text},
-                            _myStorage.name, _paths.userInfo);
+                        await _api.updateDocument(
+                          {"name": nameController.text},
+                          _myStorage.name,
+                          _paths.userInfo,
+                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
