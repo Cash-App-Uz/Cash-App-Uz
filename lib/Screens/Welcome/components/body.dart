@@ -29,6 +29,7 @@ class Body extends StatelessWidget {
             RoundedButton(
               text: "KIRISH",
               press: () {
+                
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -1,9 +1,9 @@
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/services/storage_service.dart';
 
 class CreatBudgetPage extends StatefulWidget {
-  final String ismlogin;
-  const CreatBudgetPage(this.ismlogin, {Key? key}) : super(key: key);
+  const CreatBudgetPage({Key? key}) : super(key: key);
   @override
   _CreatBudgetPageState createState() => _CreatBudgetPageState();
 }
@@ -15,6 +15,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   TextEditingController budgetName = TextEditingController();
   TextEditingController budgetPrice = TextEditingController();
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final MyStorage _myStorage = MyStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -228,6 +229,8 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
           RoundedButton(
             text: "Saqlash",
             press: () async {
+              budgetPrice.clear();
+              KirimPage.budgetName.clear();
               getInfo();
               Map<String, dynamic> data2 = Map();
               data2["type"] = "outcome";
@@ -238,7 +241,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               data2["time"] = FieldValue.serverTimestamp();
               await _firestore
                   .collection("kassa")
-                  .doc(widget.ismlogin)
+                  .doc(_myStorage.name)
                   .collection("expenses")
                   .add(data2)
                   .then(
@@ -246,7 +249,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                   );
 
               num result = userInfo["pul"] - int.parse(budgetPrice.text);
-              await _firestore.collection("users").doc(widget.ismlogin).update({
+              await _firestore.collection("users").doc(_myStorage.name).update({
                 "pul": result,
               }).then(
                 (value) => debugPrint("Update! "),
@@ -259,7 +262,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   }
 
   getInfo() async {
-    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
+    _firestore.collection("users").doc(_myStorage.name).get().then((value) {
       userInfo = value;
 
       setState(() {});
@@ -267,11 +270,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   }
 
   static const List categories = [
-    {
-      "name": "Telefon to'lovlari",
-      "icon":
-          "https://png.pngtree.com/png-vector/20190121/ourlarge/pngtree-vector-phone-cell-icon-png-image_332938.jpg"
-    },
+    {"name": "Telefon to'lovlari", "icon": "assets/images/"},
     {
       "name": "Yoqilg'i",
       "icon":

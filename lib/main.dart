@@ -1,8 +1,9 @@
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/services/storage_service.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
-  await MyPref().init();
+  await GetStorage.init();
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MyPref().name == "" ? WelcomeScreen() : HomePage(MyPref().name),
+      home: MyStorage().name == "" ? WelcomeScreen() : HomePage(),
     );
   }
 }

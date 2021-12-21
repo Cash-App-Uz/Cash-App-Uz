@@ -1,12 +1,13 @@
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/core/paths.dart';
+import 'package:cash_app/services/firebase_crud.dart';
 
 class KirimPage extends StatefulWidget {
-  final String ismlogin;
 
   static TextEditingController budgetName = TextEditingController();
 
-  const KirimPage(this.ismlogin, {Key? key}) : super(key: key);
+  const KirimPage({Key? key}) : super(key: key);
   @override
   _KirimPageState createState() => _KirimPageState();
 }
@@ -15,16 +16,10 @@ class _KirimPageState extends State<KirimPage> {
   String activeCategory = categories[0]['name'];
   String icon = categories[0]['icon'];
   TextEditingController budgetPrice = TextEditingController();
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late DocumentSnapshot userInfo;
-
+  final Api _api = Api();
   @override
   void initState() {
-    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
-      userInfo = value;
-      super.initState();
-    });
+    super.initState();
   }
 
   @override
@@ -146,7 +141,7 @@ class _KirimPageState extends State<KirimPage> {
                                   shape: BoxShape.circle,
                                   color: Colors.grey.withOpacity(0.15)),
                               child: Center(
-                                child: Image.network(
+                                child: Image.asset(
                                   categories[index]['icon'],
                                   width: getWidth(60.0),
                                   height: getWidth(60.0),
@@ -238,66 +233,32 @@ class _KirimPageState extends State<KirimPage> {
           ),
           RoundedButton(
             text: "Saqlash",
-            press: () async {
-              getInfo();
-              try {
-                Map<String, dynamic> data2 = Map();
-                data2["type"] = "income";
-                data2["category"] = activeCategory;
-                data2["icon"] = icon;
-                data2["amount"] = num.parse(budgetPrice.text);
-                data2["cause"] = KirimPage.budgetName.text;
-                data2["time"] = FieldValue.serverTimestamp();
-                await _firestore
-                    .collection("kassa")
-                    .doc(widget.ismlogin)
-                    .collection("expenses")
-                    .add(data2)
-                    .then(
-                      (value) => debugPrint("Data is successfully added!"),
-                    );
-              } catch (e) {
-                debugPrint(e.toString());
-              }
-              num result = userInfo["pul"] + int.parse(budgetPrice.text);
-              await _firestore.collection("users").doc(widget.ismlogin).update({
-                "pul": result,
-              }).then(
-                (value) => debugPrint("Update! "),
-              );
-            },
+            press: addIcome,
           )
         ],
       ),
     );
   }
 
-  getInfo() async {
-    _firestore.collection("users").doc(widget.ismlogin).get().then((value) {
-      userInfo = value;
-      setState(() {});
-    });
+  Future addIcome() async {
+    budgetPrice.clear();
+    KirimPage.budgetName.clear();
+    IoModel data = IoModel(
+      category: activeCategory,
+      amount: num.parse(budgetPrice.text),
+      cause: KirimPage.budgetName.text,
+      type: "income",
+      time: DateTime.now(),
+      icon: icon,
+    );
+    await _api.addDocument(data.toJson(), Paths().income);
+    // await _api.updateDocument({}, id, collectionPath)
   }
 
   static const List categories = [
-    {
-      "name": "Oylik Maosh",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/cash.png"
-    },
-    {
-      "name": "Qarz",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/charity.png"
-    },
-    {
-      "name": "Investitsiya",
-      "icon":
-          "https://www.pngkey.com/png/detail/416-4162504_investment-icon-png-staysafeonline-org.png"
-    },
-    {
-      "name": "Biznes Foyda",
-      "icon": "https://cdn-icons-png.flaticon.com/512/747/747783.png"
-    },
+    {"name": "Oylik Maosh", "icon": "assets/images/cash.png"},
+    {"name": "Qarz", "icon": "assets/images/charity.png"},
+    {"name": "Investitsiya", "icon": "assets/images/investment.png"},
+    {"name": "Biznes Foyda", "icon": "assets/images/business.png"},
   ];
 }

@@ -1,5 +1,5 @@
-class UserModer {
-  UserModer({
+class UserModel {
+  UserModel({
     required this.name,
     required this.password,
     required this.phone,
@@ -11,7 +11,7 @@ class UserModer {
   String phone;
   int money;
 
-  factory UserModer.fromJson(Map<String, dynamic> json) => UserModer(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         name: json["name"],
         password: json["password"],
         phone: json["phone"],

@@ -1,11 +1,15 @@
 // ignore: import_of_legacy_library_into_null_safe
+import 'package:cash_app/services/storage_service.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:cash_app/constants/imports.dart';
 
 class Body extends StatelessWidget {
   String? ismLogin;
   String? passwordLogin;
+  final MyStorage _myStorage=MyStorage();
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +50,14 @@ class Body extends StatelessWidget {
                       .get();
                   if (userInfo['name'] == ismLogin &&
                       userInfo['password'] == passwordLogin) {
+                        _myStorage.money=userInfo['money'];
+                        _myStorage.name=userInfo['name'];
+                        _myStorage.password=userInfo['password'];
+                        _myStorage.phone=userInfo['phone'];
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage(ismLogin!),
+                          builder: (context) => HomePage(),
                         ),
                         (route) => false);
                   } else {
