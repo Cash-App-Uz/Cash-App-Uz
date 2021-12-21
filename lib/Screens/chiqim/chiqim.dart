@@ -79,7 +79,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
             ),
           ),
           SizedBox(
-            height: getHeight(20.0),
+            height: getHeight(30.0),
           ),
           SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
@@ -136,7 +136,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                                   shape: BoxShape.circle,
                                   color: Colors.grey.withOpacity(0.15)),
                               child: Center(
-                                child: Image.network(
+                                child: Image.asset(
                                   categories[index]['icon'],
                                   width: getWidth(60.0),
                                   height: getWidth(60.0),
@@ -270,46 +270,14 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   }
 
   static const List categories = [
-    {"name": "Telefon to'lovlari", "icon": "assets/images/"},
-    {
-      "name": "Yoqilg'i",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/auto.png"
-    },
-    {
-      "name": "Yo'lkira xaqqi",
-      "icon":
-          "https://www.pngkit.com/png/detail/262-2625826_red-bus-icon-png-clipart-double-decker-bus.png"
-    },
-    {
-      "name": "Savdo",
-      "icon":
-          "https://www.seekpng.com/png/detail/867-8674000_family-pack-family-shopping-icon.png"
-    },
-    {
-      "name": "Kredit",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/bank.png"
-    },
-    {
-      "name": "Komunal To'lov",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/cash.png"
-    },
-    {
-      "name": "Xayriya",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/charity.png"
-    },
-    {
-      "name": "Ovqatlanish",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/eating.png"
-    },
-    {
-      "name": "Sovg'a",
-      "icon":
-          "https://raw.githubusercontent.com/sopheamen007/app.mobile.budget-tracker-app-ui/master/assets/images/gift.png"
-    }
+    {"name": "Telefon to'lovlari", "icon": "assets/images/phone.jpg"},
+    {"name": "Yoqilg'i", "icon": "assets/images/auto.png"},
+    {"name": "Yo'lkira xaqqi", "icon": "assets/images/bus.png"},
+    {"name": "Savdo", "icon": "assets/images/shop.png"},
+    {"name": "Kredit", "icon": "assets/images/bank.png"},
+    {"name": "Komunal To'lov", "icon": "assets/images/cash.png"},
+    {"name": "Xayriya", "icon": "assets/images/charity.png"},
+    {"name": "Ovqatlanish", "icon": "assets/images/eating.png"},
+    {"name": "Sovg'a", "icon": "assets/images/gift.png"}
   ];
 }

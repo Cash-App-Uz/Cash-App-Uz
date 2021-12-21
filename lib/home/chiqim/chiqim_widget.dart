@@ -34,7 +34,7 @@ class ChiqimWidget extends StatelessWidget {
                   height: getWidth(80.0),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkImage(icon),
+                    backgroundImage: AssetImage(icon),
                   )),
             ],
           ),

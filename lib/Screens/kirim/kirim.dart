@@ -242,8 +242,7 @@ class _KirimPageState extends State<KirimPage> {
   }
 
   Future addIcome() async {
-    budgetPrice.clear();
-    KirimPage.budgetName.clear();
+    
     IoModel data = IoModel(
       category: activeCategory,
       amount: num.parse(budgetPrice.text),
@@ -252,7 +251,7 @@ class _KirimPageState extends State<KirimPage> {
       time: DateTime.now(),
       icon: icon,
     );
-    print(data.toJson());
+
     _myStorage.money += num.parse(budgetPrice.text);
     await _api.addDocument(data.toJson(), Paths().expenses);
     await _api.updateDocument(
@@ -260,6 +259,8 @@ class _KirimPageState extends State<KirimPage> {
       _myStorage.name,
       Paths().userInfo,
     );
+    budgetPrice.clear();
+    KirimPage.budgetName.clear();
   }
 
   static const List categories = [
