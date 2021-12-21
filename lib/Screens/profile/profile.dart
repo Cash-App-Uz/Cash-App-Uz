@@ -1,4 +1,6 @@
 import 'package:cash_app/constants/imports.dart';
+import 'package:cash_app/core/paths.dart';
+import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -9,12 +11,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
   bool isLoading = true;
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final MyStorage _myStorage = MyStorage();
+  final _myStorage = MyStorage();
+  final _api = Api();
+  final _paths = Paths();
 
   @override
   void initState() {
@@ -147,14 +150,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () async {
                       if (nameController.text != "") {
-                        await _firestore
-                            .collection("users")
-                            .doc(_myStorage.name)
-                            .update({
-                          "name": nameController.text,
-                        }).then(
-                          (value) => debugPrint("Update! "),
-                        );
+                        await _api.updateDocument({"name": nameController.text},
+                            _myStorage.name, _paths.userInfo);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -167,13 +164,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       }
                       if (phoneController.text.length == 9) {
-                        await _firestore
-                            .collection("users")
-                            .doc(_myStorage.name)
-                            .update({
-                          "phone": phoneController.text,
-                        }).then(
-                          (value) => debugPrint("Update! "),
+                        await _api.updateDocument(
+                          {"phone": phoneController.text},
+                          _myStorage.name,
+                          _paths.userInfo,
                         );
                       } else if (phoneController.text.length < 9 &&
                           phoneController.text.length > 9) {
@@ -188,13 +182,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         );
                       }
                       if (passwordController.text.length >= 4) {
-                        await _firestore
-                            .collection("users")
-                            .doc(_myStorage.name)
-                            .update({
-                          "password": passwordController.text,
-                        }).then(
-                          (value) => debugPrint("Update! "),
+                        await _api.updateDocument(
+                          {"password": passwordController.text},
+                          _myStorage.name,
+                          _paths.userInfo,
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
