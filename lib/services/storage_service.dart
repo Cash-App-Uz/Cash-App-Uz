@@ -4,7 +4,7 @@ class MyStorage {
   GetStorage box = GetStorage();
   String get name => box.read("name") ?? '';
   String get password => box.read("password") ?? '';
-  int get money => box.read('money') ?? 0;
+  num get money => box.read('money') ?? 0;
   String get phone => box.read('phone') ?? '';
 
   set name(String name) {
