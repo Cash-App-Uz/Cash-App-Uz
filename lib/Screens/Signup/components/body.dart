@@ -66,7 +66,7 @@ class _BodyState extends State<Body> {
                     text: "Ro'yhatdan O'tish",
                     press: () async {
                       await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "+998" + "$phone",
+                          phoneNumber: "+998$phone",
                           verificationCompleted: (PhoneAuthCredential e) {},
                           verificationFailed: (FirebaseAuthException e) {},
                           codeSent: (verificationId, resendToken) {
