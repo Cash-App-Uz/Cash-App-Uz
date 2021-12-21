@@ -6,7 +6,7 @@ import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage( {Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,10 +16,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController controllerTab;
   final Api _api = Api();
   final Paths _paths = Paths();
-  final _storage = MyStorage();
+  final _mystorage = MyStorage();
   @override
   void initState() {
-
     super.initState();
     controllerTab = TabController(length: 3, vsync: this);
     _pageController = PageController();
@@ -41,7 +40,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: buildAppBar(_storage.name),
+      appBar: buildAppBar(_mystorage.name),
       body: SizedBox.expand(
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: <Widget>[
             Column(
               children: <Widget>[
-                appBarBottomSection(controllerTab, 100),
+                appBarBottomSection(controllerTab, _mystorage.money),
                 _mainBody(),
               ],
             ),

@@ -1,5 +1,7 @@
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/core/paths.dart';
+import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 
 class CreatBudgetPage extends StatefulWidget {
@@ -11,11 +13,10 @@ class CreatBudgetPage extends StatefulWidget {
 class _CreatBudgetPageState extends State<CreatBudgetPage> {
   String activeCategory = categories[0]['name'];
   String icon = categories[0]['icon'];
-  late DocumentSnapshot userInfo;
   TextEditingController budgetName = TextEditingController();
   TextEditingController budgetPrice = TextEditingController();
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final MyStorage _myStorage = MyStorage();
+  final _api = Api();
 
   @override
   Widget build(BuildContext context) {
@@ -229,44 +230,26 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
           RoundedButton(
             text: "Saqlash",
             press: () async {
-              budgetPrice.clear();
-              KirimPage.budgetName.clear();
-              getInfo();
-              Map<String, dynamic> data2 = Map();
+              Map<String, dynamic> data2 = {};
               data2["type"] = "outcome";
               data2["category"] = activeCategory;
               data2["icon"] = icon;
               data2["amount"] = num.parse(budgetPrice.text);
               data2["cause"] = budgetName.text;
               data2["time"] = FieldValue.serverTimestamp();
-              await _firestore
-                  .collection("kassa")
-                  .doc(_myStorage.name)
-                  .collection("expenses")
-                  .add(data2)
-                  .then(
-                    (value) => debugPrint("Data is successfully added!"),
-                  );
-
-              num result = userInfo["pul"] - int.parse(budgetPrice.text);
-              await _firestore.collection("users").doc(_myStorage.name).update({
-                "pul": result,
-              }).then(
-                (value) => debugPrint("Update! "),
+              await _api.addDocument(data2, Paths().expenses);
+              _myStorage.money = _myStorage.money - num.parse(budgetPrice.text);
+              await _api.updateDocument(
+                {"money": _myStorage.money},
+                _myStorage.name,
+                Paths().userInfo,
               );
+              budgetPrice.clear();
             },
           )
         ],
       ),
     );
-  }
-
-  getInfo() async {
-    _firestore.collection("users").doc(_myStorage.name).get().then((value) {
-      userInfo = value;
-
-      setState(() {});
-    });
   }
 
   static const List categories = [
