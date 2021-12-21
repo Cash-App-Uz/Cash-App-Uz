@@ -153,7 +153,7 @@ class _BodyState extends State<Body> {
                         data1["pul"] = summa;
 
                         await _firestore
-                            .collection("users")
+                            .collection("users/")
                             .doc("$ism")
                             .set(data1)
                             .then(

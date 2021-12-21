@@ -2,9 +2,9 @@ import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/core/paths.dart';
 import 'package:cash_app/services/firebase_crud.dart';
+import 'package:cash_app/services/storage_service.dart';
 
 class KirimPage extends StatefulWidget {
-
   static TextEditingController budgetName = TextEditingController();
 
   const KirimPage({Key? key}) : super(key: key);
@@ -17,6 +17,7 @@ class _KirimPageState extends State<KirimPage> {
   String icon = categories[0]['icon'];
   TextEditingController budgetPrice = TextEditingController();
   final Api _api = Api();
+  final _myStorage = MyStorage();
   @override
   void initState() {
     super.initState();
@@ -251,8 +252,14 @@ class _KirimPageState extends State<KirimPage> {
       time: DateTime.now(),
       icon: icon,
     );
-    await _api.addDocument(data.toJson(), Paths().income);
-    // await _api.updateDocument({}, id, collectionPath)
+    print(data.toJson());
+    _myStorage.money += num.parse(budgetPrice.text);
+    await _api.addDocument(data.toJson(), Paths().expenses);
+    await _api.updateDocument(
+      {"money": _myStorage.money},
+      _myStorage.name,
+      Paths().userInfo,
+    );
   }
 
   static const List categories = [

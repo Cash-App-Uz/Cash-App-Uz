@@ -15,7 +15,7 @@ class MyStorage {
     box.write("password", password);
   }
 
-  set money(int money) {
+  set money(num money) {
     box.write("money", money);
   }
 
