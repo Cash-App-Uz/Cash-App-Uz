@@ -70,7 +70,7 @@ class _BodyState extends State<Body> {
                       password = value;
 
                       setState(() {});
-                      isSignUp = (phone!.length > 9) &&
+                      isSignUp = (phone!.length == 9) &&
                           (ism!.length > 3) &&
                           (password!.length >= 4);
                     },
