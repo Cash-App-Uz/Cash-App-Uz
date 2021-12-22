@@ -1,3 +1,4 @@
+import 'package:cash_app/Screens/about_us/about_us.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/services/storage_service.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         primaryColor: kPrimaryColor,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: MyStorage().name == "" ? WelcomeScreen() : HomePage(),
+      home: MyStorage().name == "" ? WelcomeScreen() : const HomePage(),
     );
   }
 }
