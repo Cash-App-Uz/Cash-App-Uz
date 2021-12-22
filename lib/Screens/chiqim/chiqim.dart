@@ -245,6 +245,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                 Paths().userInfo,
               );
               budgetPrice.clear();
+              budgetName.clear();
             },
           )
         ],
