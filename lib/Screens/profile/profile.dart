@@ -131,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         _myStorage.name,
                         _paths.userInfo,
                       );
-                      _myStorage.name = phoneController.text;
+                      _myStorage.phone = phoneController.text;
                       phoneController.clear();
                     } else if (phoneController.text.length < 9 &&
                         phoneController.text.length > 9) {
@@ -151,7 +151,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         _myStorage.name,
                         _paths.userInfo,
                       );
-                      _myStorage.name = passwordController.text;
+                      _myStorage.password = passwordController.text;
                       passwordController.clear();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -166,6 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       );
                     }
+                    setState(() {});
                   },
                   child: Container(
                     child: Row(
