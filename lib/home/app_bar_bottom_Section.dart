@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/home/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ Widget appBarBottomSection(TabController controllerTab, userInfoPul) {
           padding: EdgeInsets.symmetric(horizontal: getWidth(50.0)),
           width: 500.0,
           decoration: const BoxDecoration(
-            color: Colors.deepPurpleAccent,
+            color: kCategoryWidget,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(50),
               bottomRight: Radius.circular(50),
@@ -64,9 +65,9 @@ Widget appBarBottomSection(TabController controllerTab, userInfoPul) {
                     isScrollable: true,
                     controller: controllerTab,
                     labelColor: Colors.white,
-                    unselectedLabelColor: Colors.amber,
+                    unselectedLabelColor: kCategoryWidget,
                     indicator: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: kAppBar,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     tabs: const [

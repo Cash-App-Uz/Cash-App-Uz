@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/core/paths.dart';
@@ -71,23 +72,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           BottomNavyBarItem(
               title: const Text('Asosiy'),
               icon: const Icon(Icons.home),
-              inactiveColor: _secondaryColor,
-              activeColor: _primaryColor),
+              inactiveColor: kAppBar,
+              activeColor: kCategoryWidget),
           BottomNavyBarItem(
               title: const Text('Kirim'),
               icon: const Icon(Icons.attach_money_rounded),
-              inactiveColor: _secondaryColor,
-              activeColor: _primaryColor),
+              inactiveColor: kAppBar,
+              activeColor: kCategoryWidget),
           BottomNavyBarItem(
               title: const Text('Chiqim'),
               icon: const Icon(Icons.money_off_csred_outlined),
-              inactiveColor: _secondaryColor,
-              activeColor: _primaryColor),
+              inactiveColor: kAppBar,
+              activeColor: kCategoryWidget),
           BottomNavyBarItem(
               title: const Text('Profil'),
               icon: const Icon(Icons.person),
-              inactiveColor: _secondaryColor,
-              activeColor: _primaryColor),
+              inactiveColor: kAppBar,
+              activeColor: kCategoryWidget),
         ],
       ),
     );

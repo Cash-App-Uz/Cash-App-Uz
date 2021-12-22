@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/core/paths.dart';
 import 'package:cash_app/services/firebase_crud.dart';
@@ -52,21 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 const AssetImage("assets/images/profile.png"),
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.deepOrangeAccent,
-                            radius: size.width * 0.05,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.camera_alt,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        )
+                        
                       ],
                     ),
                   ),
@@ -193,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: size.width,
                     height: size.height * 0.07,
                     decoration: BoxDecoration(
-                      color: Colors.deepPurpleAccent,
+                      color: kCategoryWidget,
                       borderRadius: BorderRadius.circular(size.width * 0.08),
                     ),
                   ),
@@ -224,7 +211,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         const Icon(
                           Icons.logout,
-                          color: Colors.deepOrangeAccent,
+                          color: kAppBar,
                         ),
                       ],
                     ),
@@ -232,7 +219,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: size.width,
                     height: size.height * 0.07,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.deepOrangeAccent),
+                      border: Border.all(color: kAppBar),
                       borderRadius: BorderRadius.circular(size.width * 0.08),
                     ),
                   ),

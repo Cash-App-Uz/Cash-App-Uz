@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 
@@ -9,7 +10,7 @@ class RoundedButton extends StatelessWidget {
     Key? key,
     required this.text,
     required this.press,
-    this.color = kPrimaryColor,
+    this.color = kCategoryWidget,
     this.textColor = Colors.white,
   }) : super(key: key);
 

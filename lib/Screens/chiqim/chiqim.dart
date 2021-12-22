@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/core/paths.dart';
@@ -105,11 +106,11 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                     width: getWidth(150.0),
                     height: getHeight(186.0),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: kCategoryWidget,
                         border: Border.all(
                             width: getWidth(2.0),
                             color: activeCategory == categories[index]['name']
-                                ? Colors.deepOrangeAccent
+                                ? kAppBar
                                 : Colors.transparent),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -145,6 +146,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                           Text(
                             categories[index]['name'],
                             style: TextStyle(
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: getWidth(18.0),
                             ),

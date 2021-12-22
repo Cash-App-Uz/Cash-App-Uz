@@ -1,3 +1,4 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/imports.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:cash_app/core/paths.dart';
@@ -110,11 +111,11 @@ class _KirimPageState extends State<KirimPage> {
                     width: getWidth(150.0),
                     height: getHeight(186.0),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: kCategoryWidget,
                         border: Border.all(
                             width: 2,
                             color: activeCategory == categories[index]['name']
-                                ? const Color(0xFFFF3378)
+                                ? kAppBar
                                 : Colors.transparent),
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
@@ -149,6 +150,7 @@ class _KirimPageState extends State<KirimPage> {
                           Text(
                             categories[index]['name'],
                             style: TextStyle(
+                              color: kWhite,
                               fontWeight: FontWeight.bold,
                               fontSize: getWidth(18.0),
                             ),

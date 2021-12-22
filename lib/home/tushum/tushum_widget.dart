@@ -1,46 +1,44 @@
+import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TushumWidget extends StatelessWidget {
-   const TushumWidget(
-      {required this.icon,
+  TushumWidget(
+      {Key? key, required this.icon,
       required this.budgetName,
       required this.budgetInfo,
       required this.budgetPrice,
-      required this.time});
+      required this.time}) : super(key: key);
 
   final String icon;
+
   final String budgetName;
   final String budgetInfo;
   final num budgetPrice;
   final DateTime time;
+  final NumberFormat _numberFormat = NumberFormat(",###");
+  final format = DateFormat('dd-MM-yyyy HH:MM');
   @override
   Widget build(BuildContext context) {
     return Ink(
-      padding: EdgeInsets.symmetric(horizontal: getWidth(30.0), vertical: getHeight(16.0)),
+      padding: EdgeInsets.symmetric(
+          horizontal: getWidth(30.0), vertical: getHeight(16.0)),
       decoration: BoxDecoration(
-        color: Colors.deepOrangeAccent,
+        color: kCategoryWidget,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.deepPurpleAccent.withOpacity(0.1), width: 2),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.deepOrangeAccent.withOpacity(0.4),
-            offset: const Offset(0, 8),
-            blurRadius: 10,
-          ),
-        ],
+        border: Border.all(
+            color: Colors.deepPurpleAccent.withOpacity(0.1), width: 2),
       ),
       child: Row(
         children: <Widget>[
           Stack(
             children: <Widget>[
               SizedBox(
-                  width: getWidth(80.0),
-                  height: getWidth(80.0),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    backgroundImage: AssetImage(icon),
-                  )),
+                width: getWidth(80.0),
+                height: getWidth(80.0),
+                child: Image.asset(icon),
+              ),
             ],
           ),
           SizedBox(
@@ -51,7 +49,7 @@ class TushumWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                budgetPrice.toString(),
+                _numberFormat.format(budgetPrice),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: getWidth(20.0),
@@ -73,10 +71,10 @@ class TushumWidget extends StatelessWidget {
                 height: getHeight(10.0),
               ),
               Text(
-                time.toString(),
+                format.format(time),
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: getWidth(10.0),
+                  fontSize: getWidth(12.0),
                   fontWeight: FontWeight.w500,
                 ),
               ),
