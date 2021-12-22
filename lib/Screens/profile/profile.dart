@@ -149,12 +149,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                   InkWell(
                     onTap: () async {
-                      if (nameController.text != "") {
+                      if (nameController.text != "" &&
+                          nameController.text.length > 3) {
                         await _api.updateDocument(
                           {"name": nameController.text},
                           _myStorage.name,
                           _paths.userInfo,
                         );
+                        _myStorage.name = nameController.text;
+                        nameController.clear();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -172,6 +175,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           _myStorage.name,
                           _paths.userInfo,
                         );
+                        _myStorage.name = phoneController.text;
+                        phoneController.clear();
                       } else if (phoneController.text.length < 9 &&
                           phoneController.text.length > 9) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -190,6 +195,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           _myStorage.name,
                           _paths.userInfo,
                         );
+                        _myStorage.name = passwordController.text;
+                        passwordController.clear();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
