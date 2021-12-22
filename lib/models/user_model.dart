@@ -9,13 +9,13 @@ class UserModel {
   String name;
   String password;
   String phone;
-  int money;
+  num money;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         name: json["name"],
         password: json["password"],
         phone: json["phone"],
-        money: json["money"],
+        money: num.parse(json["money"].toString()),
       );
 
   Map<String, dynamic> toJson() => {

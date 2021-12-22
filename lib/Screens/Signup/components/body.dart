@@ -18,11 +18,11 @@ class _BodyState extends State<Body> {
   var _otpController;
   final _api = Api();
 
-  String? ism;
+  String ism = '';
 
-  String? phone;
+  String phone = '';
 
-  String? password;
+  String password = '';
 
   int? summa;
 
@@ -54,9 +54,10 @@ class _BodyState extends State<Body> {
                     onChanged: (value) {
                       ism = value;
                       setState(() {});
-                      isSignUp = (phone!.length == 9) &&
-                          (ism!.length > 3) &&
-                          (password!.length >= 4);
+
+                      isSignUp = (phone.length == 9) &&
+                          (ism.length > 3) &&
+                          (password.length >= 4);
                     },
                   ),
                   RoundedPhoneInputField(
@@ -64,9 +65,9 @@ class _BodyState extends State<Body> {
                     onChanged: (value) {
                       phone = value;
                       setState(() {});
-                      isSignUp = (phone!.length == 9) &&
-                          (ism!.length > 3) &&
-                          (password!.length >= 4);
+                      isSignUp = (phone.length == 9) &&
+                          (ism.length > 3) &&
+                          (password.length >= 4);
                     },
                   ),
                   RoundedPasswordField(
@@ -74,16 +75,16 @@ class _BodyState extends State<Body> {
                       password = value;
 
                       setState(() {});
-                      isSignUp = (phone!.length == 9) &&
-                          (ism!.length > 3) &&
-                          (password!.length >= 4);
+                      isSignUp = (phone.length == 9) &&
+                          (ism.length > 3) &&
+                          (password.length >= 4);
                     },
                   ),
                   RoundedButton(
                     text: "Ro'yhatdan O'tish",
                     press: isSignUp == true
                         ? () async {
-                            if (await _api.exists(Paths().userInfo, ism)) {
+                            if (!await _api.exists(Paths().userInfo, ism)) {
                               await FirebaseAuth.instance.verifyPhoneNumber(
                                   phoneNumber: "+998$phone",
                                   verificationCompleted:
@@ -190,24 +191,17 @@ class _BodyState extends State<Body> {
                         data1["name"] = ism;
                         data1["phone"] = phone;
                         data1["password"] = password;
-                        data1["pul"] = summa;
+                        data1["money"] = summa;
 
-                        await _firestore
-                            .collection("users/")
-                            .doc("$ism")
-                            .set(data1)
-                            .then(
-                              (value) =>
-                                  debugPrint("Data is successfully added!"),
-                            );
+                        await _api.addDocument(data1, Paths().userInfo);
                         _myStorage.money = summa!;
-                        _myStorage.name = ism!;
-                        _myStorage.password = password!;
-                        _myStorage.phone = phone!;
+                        _myStorage.name = ism;
+                        _myStorage.password = password;
+                        _myStorage.phone = phone;
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => HomePage(),
+                              builder: (context) => const HomePage(),
                             ),
                             (route) => false);
                       } catch (e) {

@@ -32,9 +32,11 @@ class Api {
     yield* _db.collection(collectionPath).snapshots();
   }
 
-  Future<DocumentSnapshot> getDocumentById(
+  Future<Map<String,dynamic>> getDocumentById(
       String id, String collectionPath) async {
-    return await _db.collection(collectionPath).doc(id).get();
+    DocumentSnapshot<Map<String, dynamic>> data =
+        await _db.collection(collectionPath).doc(id).get();
+    return data.data()!;
   }
 
   Future<void> removeDocument(String id, String collectionPath) async {
