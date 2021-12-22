@@ -48,6 +48,6 @@ class Api {
 
   Future<void> updateDocument(
       Map<String, dynamic> data, String id, String collectionPath) async {
-    return _db.collection(collectionPath).doc(id).set(data);
+    return _db.collection(collectionPath).doc(id).set(data,SetOptions(merge: true));
   }
 }
