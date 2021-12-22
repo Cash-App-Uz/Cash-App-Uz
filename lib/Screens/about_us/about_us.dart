@@ -1,10 +1,12 @@
 import 'package:cash_app/constants/colors.dart';
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/services/url_service.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class AboutUs extends StatelessWidget {
-  const AboutUs({Key? key}) : super(key: key);
-
+  AboutUs({Key? key}) : super(key: key);
+  final UrlLaunch _launcher = UrlLaunch();
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -21,12 +23,30 @@ class AboutUs extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _developerInfoCard("Samandar", "samandar_Jasurovich",
-                  "+998 91 207 79 78", "Github.com"),
-              _developerInfoCard("Samandar", "samandar_Jasurovich",
-                  "+998 91 207 79 78", "Github.com"),
-              _developerInfoCard("Samandar", "samandar_Jasurovich",
-                  "+998 91 207 79 78", "Github.com"),
+              _developerInfoCard(
+                  "Samandar",
+                  "Samandar_Jasurovich",
+                  "+998 91 207 79 78",
+                  "Github.com",
+                  "Github",
+                  context,
+                  'https://github.com/jasurovich','assets/images/samandar.png'),
+              _developerInfoCard(
+                  "Diyorbek",
+                  "DiyorbekDev",
+                  "+998 97 907 97 79",
+                  "Github.com",
+                  "Github",
+                  context,
+                  'https://github.com/discoveruz','assets/images/diyorbek.jpg'),
+              _developerInfoCard(
+                  "Muhammad",
+                  "MuhammadFazliddinov",
+                  "+998 94 524 99 44",
+                  "Behance.com",
+                  "Behance.com",
+                  context,
+                  'https://www.behance.net/mohamedrec/',"assets/images/Muhammad_aka.png"),
             ],
           ),
         ),
@@ -34,7 +54,8 @@ class AboutUs extends StatelessWidget {
     );
   }
 
-  Ink _developerInfoCard(ismi, telegram, telefon, github) {
+  Ink _developerInfoCard(
+      ismi, telegram, telefon, github, network, context, web,image) {
     return Ink(
       width: getWidth(335.0),
       height: getHeight(220.0),
@@ -47,7 +68,6 @@ class AboutUs extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(getWidth(10.0)),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
@@ -56,6 +76,7 @@ class AboutUs extends StatelessWidget {
                 width: getWidth(140.0),
                 height: getHeight(229.0),
                 decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(image),fit: BoxFit.cover),
                   color: Colors.cyan.shade100,
                   borderRadius: BorderRadius.circular(
                     getWidth(15.0),
@@ -63,6 +84,7 @@ class AboutUs extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(width: getWidth(10.0)),
             Padding(
               padding: EdgeInsets.symmetric(vertical: getHeight(15.0)),
               child: Column(
@@ -82,20 +104,28 @@ class AboutUs extends StatelessWidget {
                       Text(
                         "Telegram:",
                         style: TextStyle(
-                            color: const Color(0xffB8C5D0),
-                            fontSize: getWidth(9.0),
-                            fontWeight: FontWeight.w500),
+                          color: const Color(0xffB8C5D0),
+                          fontSize: getWidth(9.0),
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                       SizedBox(
                         height: getHeight(5.0),
                       ),
-                      Text(
-                        telegram,
-                        style: TextStyle(
-                            color: const Color(0xff79838B),
+                      RichText(
+                        text: TextSpan(
+                          text: telegram,
+                          style: TextStyle(
+                            color: const Color(0xff3366BB),
                             fontSize: getWidth(14.0),
-                            fontWeight: FontWeight.w500),
-                      ),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launcher.launchTelegram(telegram, context);
+                            },
+                        ),
+                      )
                     ],
                   ),
                   Column(
@@ -111,20 +141,27 @@ class AboutUs extends StatelessWidget {
                       SizedBox(
                         height: getHeight(5.0),
                       ),
-                      Text(
-                        telefon,
-                        style: TextStyle(
-                            color: const Color(0xff79838B),
+                      RichText(
+                        text: TextSpan(
+                          text: telefon,
+                          style: TextStyle(
+                            color: const Color(0xff3366BB),
                             fontSize: getWidth(14.0),
-                            fontWeight: FontWeight.w500),
-                      ),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launcher.launchPhone(telefon, context);
+                            },
+                        ),
+                      )
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "GitHub:",
+                        network,
                         style: TextStyle(
                             color: const Color(0xffB8C5D0),
                             fontSize: getWidth(9.0),
@@ -133,13 +170,20 @@ class AboutUs extends StatelessWidget {
                       SizedBox(
                         height: getHeight(5.0),
                       ),
-                      Text(
-                        github,
-                        style: TextStyle(
-                            color: const Color(0xff79838B),
+                      RichText(
+                        text: TextSpan(
+                          text: github,
+                          style: TextStyle(
+                            color: const Color(0xff3366BB),
                             fontSize: getWidth(14.0),
-                            fontWeight: FontWeight.w500),
-                      ),
+                            fontWeight: FontWeight.w500,
+                          ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              _launcher.launchWeb(web, context);
+                            },
+                        ),
+                      )
                     ],
                   ),
                 ],

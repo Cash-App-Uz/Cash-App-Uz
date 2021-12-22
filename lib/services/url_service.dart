@@ -2,6 +2,7 @@ import 'package:cash_app/constants/imports.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UrlLaunch {
+  const UrlLaunch();
   _message(context) {
     return ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -18,7 +19,7 @@ class UrlLaunch {
 
   Future<void> launchTelegram(String url, BuildContext context) async {
     if (await canLaunch("https://t.me/" + url)) {
-      await launch(url);
+      await launch("https://t.me/" + url);
     } else {
       _message(context);
     }
