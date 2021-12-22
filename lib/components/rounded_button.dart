@@ -3,7 +3,7 @@ import 'package:cash_app/constants/size_config.dart';
 
 class RoundedButton extends StatelessWidget {
   final String text;
-  final void Function() press;
+  final void Function()? press;
   final Color color, textColor;
   const RoundedButton({
     Key? key,
