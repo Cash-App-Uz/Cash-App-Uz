@@ -26,7 +26,6 @@ class _BodyState extends State<Body> {
 
   int? summa;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final _myStorage = MyStorage();
   @override
   Widget build(BuildContext context) {
@@ -193,7 +192,7 @@ class _BodyState extends State<Body> {
                         data1["password"] = password;
                         data1["money"] = summa;
 
-                        await _api.addDocument(data1, Paths().userInfo);
+                        await _api.updateDocument(data1, ism, Paths().userInfo);
                         _myStorage.money = summa!;
                         _myStorage.name = ism;
                         _myStorage.password = password;
