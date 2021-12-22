@@ -10,6 +10,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   bool tekshir = true;
+  final TextEditingController controller = TextEditingController(text: '0');
   var _verificationId;
   bool? isSignUp;
   var _otpController;
@@ -50,7 +51,7 @@ class _BodyState extends State<Body> {
                     onChanged: (value) {
                       ism = value;
                       setState(() {});
-                      isSignUp = (phone!.length > 9) &&
+                      isSignUp = (phone!.length == 9) &&
                           (ism!.length > 3) &&
                           (password!.length >= 4);
                     },
@@ -60,7 +61,7 @@ class _BodyState extends State<Body> {
                     onChanged: (value) {
                       phone = value;
                       setState(() {});
-                      isSignUp = (phone!.length > 9) &&
+                      isSignUp = (phone!.length == 9) &&
                           (ism!.length > 3) &&
                           (password!.length >= 4);
                     },
@@ -77,7 +78,7 @@ class _BodyState extends State<Body> {
                   ),
                   RoundedButton(
                     text: "Ro'yhatdan O'tish",
-                    press: isSignUp==true
+                    press: isSignUp == true
                         ? () async {
                             await FirebaseAuth.instance.verifyPhoneNumber(
                                 phoneNumber: "+998$phone",
@@ -144,16 +145,20 @@ class _BodyState extends State<Body> {
             RoundedSmsCodeField(
               onChanged: (value) {
                 _otpController = value;
-              },
-            ),
-            SummaInputField(
-              onChanged: (value) {
                 setState(() {
-                  summa = int.parse(value);
+                  
                 });
               },
             ),
-            summa != null
+            SummaInputField(
+              controller: controller,
+              onChanged: (value) {
+                setState(() {
+                  summa = int.parse(value.isEmpty ? '0' : value);
+                });
+              },
+            ),
+            controller.text.isNotEmpty
                 ? RoundedButton(
                     text: "Tasdiqlash",
                     press: () async {
