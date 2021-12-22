@@ -135,12 +135,9 @@ class _KirimPageState extends State<KirimPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                               width: getWidth(60.0),
                               height: getWidth(60.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.withOpacity(0.15)),
                               child: Center(
                                 child: Image.asset(
                                   categories[index]['icon'],

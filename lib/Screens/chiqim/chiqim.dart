@@ -130,12 +130,10 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
+                          SizedBox(
                               width: getWidth(80.0),
                               height: getWidth(80.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey.withOpacity(0.15)),
+                              
                               child: Center(
                                 child: Image.asset(
                                   categories[index]['icon'],
@@ -254,10 +252,9 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
   }
 
   static const List categories = [
-    {"name": "Telefon to'lovlari", "icon": "assets/images/phone.jpg"},
-    {"name": "Yoqilg'i", "icon": "assets/images/auto.png"},
-    {"name": "Yo'lkira xaqqi", "icon": "assets/images/bus.png"},
-    {"name": "Savdo", "icon": "assets/images/shop.png"},
+    {"name": "Telefon to'lovlari", "icon": "assets/images/phone.png"},
+    {"name": "Yo'l harajatlari", "icon": "assets/images/auto.png"},
+    // {"name": "Savdo", "icon": "assets/images/shop.png"},
     {"name": "Kredit", "icon": "assets/images/bank.png"},
     {"name": "Komunal To'lov", "icon": "assets/images/cash.png"},
     {"name": "Xayriya", "icon": "assets/images/charity.png"},
