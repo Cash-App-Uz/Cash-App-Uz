@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: buildAppBar(_mystorage.name),
+      appBar: buildAppBar(_mystorage.name, context),
       body: SizedBox.expand(
         child: PageView(
           physics: const NeverScrollableScrollPhysics(),
