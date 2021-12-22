@@ -1,4 +1,6 @@
 import 'package:cash_app/constants/size_config.dart';
+import 'package:cash_app/core/paths.dart';
+import 'package:cash_app/services/firebase_crud.dart';
 import 'package:cash_app/services/storage_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cash_app/constants/imports.dart';
@@ -14,6 +16,7 @@ class _BodyState extends State<Body> {
   var _verificationId;
   bool? isSignUp;
   var _otpController;
+  final _api = Api();
 
   String? ism;
 
@@ -80,25 +83,41 @@ class _BodyState extends State<Body> {
                     text: "Ro'yhatdan O'tish",
                     press: isSignUp == true
                         ? () async {
-                            await FirebaseAuth.instance.verifyPhoneNumber(
-                                phoneNumber: "+998$phone",
-                                verificationCompleted:
-                                    (PhoneAuthCredential e) {},
-                                verificationFailed:
-                                    (FirebaseAuthException e) {},
-                                codeSent: (verificationId, resendToken) {
-                                  _verificationId = verificationId;
-                                },
-                                codeAutoRetrievalTimeout:
-                                    (String verificationId) {});
-                            if (tekshir) {
-                              setState(() {
-                                tekshir = false;
-                              });
+                            if (await _api.exists(Paths().userInfo, ism)) {
+                              await FirebaseAuth.instance.verifyPhoneNumber(
+                                  phoneNumber: "+998$phone",
+                                  verificationCompleted:
+                                      (PhoneAuthCredential e) {},
+                                  verificationFailed:
+                                      (FirebaseAuthException e) {},
+                                  codeSent: (verificationId, resendToken) {
+                                    _verificationId = verificationId;
+                                  },
+                                  codeAutoRetrievalTimeout:
+                                      (String verificationId) {});
+                              if (tekshir) {
+                                setState(() {
+                                  tekshir = false;
+                                });
+                              } else {
+                                setState(() {
+                                  tekshir = true;
+                                });
+                              }
                             } else {
-                              setState(() {
-                                tekshir = true;
-                              });
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: const Text(
+                                    'Bunday foydalanuvchi mavjud',
+                                  ),
+                                  action: SnackBarAction(
+                                    label: 'ok',
+                                    onPressed: () {
+                                      // Some code to undo the change.
+                                    },
+                                  ),
+                                ),
+                              );
                             }
                           }
                         : null,
@@ -145,9 +164,7 @@ class _BodyState extends State<Body> {
             RoundedSmsCodeField(
               onChanged: (value) {
                 _otpController = value;
-                setState(() {
-                  
-                });
+                setState(() {});
               },
             ),
             SummaInputField(
