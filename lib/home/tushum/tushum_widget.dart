@@ -1,9 +1,8 @@
 import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TushumWidget extends StatelessWidget {
-   TushumWidget(
+   const TushumWidget(
       {required this.icon,
       required this.budgetName,
       required this.budgetInfo,
@@ -15,7 +14,6 @@ class TushumWidget extends StatelessWidget {
   final String budgetInfo;
   final num budgetPrice;
   final DateTime time;
-   final oCcy = NumberFormat("#,##0", "en_US");
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -53,7 +51,7 @@ class TushumWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                oCcy.format(budgetPrice.toString()),
+                budgetPrice.toString(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: getWidth(20.0),
