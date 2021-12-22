@@ -54,7 +54,7 @@ class Api {
         .set(data, SetOptions(merge: true));
   }
 
-  Future exists(path, name) async {
+  Future<bool> exists(path, name) async {
     DocumentSnapshot<Map<String, dynamic>> doc =
         await _db.collection(path).doc(name).get();
     return doc.exists;
