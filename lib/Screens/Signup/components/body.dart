@@ -11,7 +11,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   bool tekshir = true;
   var _verificationId;
-
+  bool? isSignUp;
   var _otpController;
 
   String? ism;
@@ -49,22 +49,35 @@ class _BodyState extends State<Body> {
                     hintText: "Ism",
                     onChanged: (value) {
                       ism = value;
+                      setState(() {});
+                      isSignUp = (phone!.length > 9) &&
+                          (ism!.length > 3) &&
+                          (password!.length >= 4);
                     },
                   ),
                   RoundedPhoneInputField(
                     hintText: "Misol: 912077978",
                     onChanged: (value) {
                       phone = value;
+                      setState(() {});
+                      isSignUp = (phone!.length > 9) &&
+                          (ism!.length > 3) &&
+                          (password!.length >= 4);
                     },
                   ),
                   RoundedPasswordField(
                     onChanged: (value) {
                       password = value;
+
+                      setState(() {});
+                      isSignUp = (phone!.length > 9) &&
+                          (ism!.length > 3) &&
+                          (password!.length >= 4);
                     },
                   ),
                   RoundedButton(
                     text: "Ro'yhatdan O'tish",
-                    press: phone?.length == 9
+                    press: isSignUp==true
                         ? () async {
                             await FirebaseAuth.instance.verifyPhoneNumber(
                                 phoneNumber: "+998$phone",
