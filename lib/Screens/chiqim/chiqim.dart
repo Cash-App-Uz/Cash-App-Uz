@@ -236,7 +236,7 @@ class _CreatBudgetPageState extends State<CreatBudgetPage> {
               data2["icon"] = icon;
               data2["amount"] = num.parse(budgetPrice.text);
               data2["cause"] = budgetName.text;
-              data2["time"] = FieldValue.serverTimestamp();
+              data2["time"] = DateTime.now();
               await _api.addDocument(data2, Paths().expenses);
               _myStorage.money = _myStorage.money - num.parse(budgetPrice.text);
               await _api.updateDocument(
