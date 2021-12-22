@@ -48,6 +48,15 @@ class Api {
 
   Future<void> updateDocument(
       Map<String, dynamic> data, String id, String collectionPath) async {
-    return _db.collection(collectionPath).doc(id).set(data,SetOptions(merge: true));
+    return _db
+        .collection(collectionPath)
+        .doc(id)
+        .set(data, SetOptions(merge: true));
+  }
+
+  Future exists(path, name) async {
+    DocumentSnapshot<Map<String, dynamic>> doc =
+        await _db.collection(path).doc(name).get();
+    return doc.exists;
   }
 }
