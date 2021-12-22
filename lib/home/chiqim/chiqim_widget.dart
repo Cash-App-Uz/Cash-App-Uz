@@ -1,8 +1,9 @@
 import 'package:cash_app/constants/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ChiqimWidget extends StatelessWidget {
-  const ChiqimWidget(
+   ChiqimWidget(
       {Key? key, required this.icon,
       required this.budgetName,
       required this.budgetInfo,
@@ -14,6 +15,7 @@ class ChiqimWidget extends StatelessWidget {
   final String budgetInfo;
   final num budgetPrice;
   final DateTime time;
+  final oCcy = NumberFormat("#,##0", "en_US");
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class ChiqimWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                budgetPrice.toString(),
+                oCcy.format(budgetPrice.toString()),
                 style: TextStyle(
                   color: Colors.deepOrangeAccent,
                   fontSize: getWidth(20.0),
