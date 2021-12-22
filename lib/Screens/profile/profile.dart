@@ -84,7 +84,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                   controller: phoneController,
                   decoration: InputDecoration(
-                    hintText:  _myStorage.phone,
+                    hintText: _myStorage.phone,
                     enabledBorder: OutlineInputBorder(
                       borderSide: const BorderSide(color: Colors.grey),
                       borderRadius: BorderRadius.circular(30.0),
@@ -204,6 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         MaterialPageRoute(
                             builder: (context) => WelcomeScreen()),
                         (route) => false);
+                    _myStorage.delete();
                   },
                   child: Container(
                     child: Row(
