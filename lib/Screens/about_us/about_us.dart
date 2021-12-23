@@ -13,6 +13,13 @@ class AboutUs extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffE2F4FF),
       appBar: AppBar(
+        title: Text(
+          "Mualliflar:",
+          style: TextStyle(
+            color: kCategoryWidget,
+            fontSize: getWidth(20.0)
+          ),
+        ),
         iconTheme: const IconThemeData(color: kCategoryWidget),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -30,7 +37,8 @@ class AboutUs extends StatelessWidget {
                   "Github.com",
                   "Github",
                   context,
-                  'https://github.com/jasurovich','assets/images/samandar.png'),
+                  'https://github.com/jasurovich',
+                  'assets/images/samandar.png'),
               _developerInfoCard(
                   "Diyorbek",
                   "DiyorbekDev",
@@ -38,7 +46,8 @@ class AboutUs extends StatelessWidget {
                   "Github.com",
                   "Github",
                   context,
-                  'https://github.com/discoveruz','assets/images/diyorbek.jpg'),
+                  'https://github.com/discoveruz',
+                  'assets/images/diyorbek.jpg'),
               _developerInfoCard(
                   "Muhammad",
                   "MuhammadFazliddinov",
@@ -46,7 +55,8 @@ class AboutUs extends StatelessWidget {
                   "Behance.com",
                   "Behance.com",
                   context,
-                  'https://www.behance.net/mohamedrec/',"assets/images/Muhammad_aka.png"),
+                  'https://www.behance.net/mohamedrec/',
+                  "assets/images/Muhammad_aka.png"),
             ],
           ),
         ),
@@ -55,7 +65,7 @@ class AboutUs extends StatelessWidget {
   }
 
   Ink _developerInfoCard(
-      ismi, telegram, telefon, github, network, context, web,image) {
+      ismi, telegram, telefon, github, network, context, web, image) {
     return Ink(
       width: getWidth(335.0),
       height: getHeight(220.0),
@@ -76,7 +86,8 @@ class AboutUs extends StatelessWidget {
                 width: getWidth(140.0),
                 height: getHeight(229.0),
                 decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(image),fit: BoxFit.cover),
+                  image: DecorationImage(
+                      image: AssetImage(image), fit: BoxFit.cover),
                   color: Colors.cyan.shade100,
                   borderRadius: BorderRadius.circular(
                     getWidth(15.0),
